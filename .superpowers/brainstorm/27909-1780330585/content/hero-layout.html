@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thali House — Design Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=DM+Serif+Display&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #0f0f0f; color: #F5F0E8; min-height: 100vh; }
+
+  .preview-bar {
+    background: #1a1a1a; border-bottom: 1px solid #333; padding: 10px 20px;
+    display: flex; align-items: center; gap: 12px; font-size: 12px; color: #888;
+    font-family: monospace; position: sticky; top: 0; z-index: 100;
+  }
+  .preview-bar span { color: #FF6B00; font-weight: 600; }
+  .preview-bar .dot { width: 8px; height: 8px; border-radius: 50%; background: #FF6B00; display: inline-block; }
+  .section-label { text-transform: uppercase; letter-spacing: 3px; font-size: 10px; color: #FF6B00; font-family: Inter, sans-serif; font-weight: 600; margin-bottom: 8px; }
+
+  /* NAV */
+  .nav {
+    position: absolute; top: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 40px; z-index: 10;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #F5F0E8; }
+  .nav-logo span { color: #FF6B00; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { color: rgba(245,240,232,0.8); text-decoration: none; font-size: 14px; font-weight: 400; letter-spacing: 0.5px; transition: color 0.2s; }
+  .nav-links a:hover { color: #FF6B00; }
+  .nav-lang { display: flex; gap: 6px; }
+  .nav-lang button { background: none; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); padding: 4px 10px; border-radius: 3px; font-size: 11px; cursor: pointer; font-weight: 500; transition: all 0.2s; }
+  .nav-lang button.active { background: #FF6B00; border-color: #FF6B00; color: white; }
+
+  /* HERO */
+  .hero {
+    position: relative; height: 100vh; min-height: 600px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    overflow: hidden; background: #1A0800;
+  }
+  .hero-img { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1600&q=80&fit=crop') center/cover no-repeat; opacity: 0.28; }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(26,8,0,0.55) 0%, rgba(26,8,0,0.25) 50%, rgba(26,8,0,0.88) 100%); }
+  .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 20px; max-width: 800px; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,107,0,0.15); border: 1px solid rgba(255,107,0,0.4); padding: 6px 16px; border-radius: 20px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #FF6B00; margin-bottom: 24px; font-weight: 500; }
+  .hero-tagline { font-family: 'Playfair Display', serif; font-size: clamp(38px, 7vw, 72px); font-weight: 700; line-height: 1.1; margin-bottom: 8px; background: linear-gradient(135deg, #F5F0E8 0%, #D4A017 60%, #FF6B00 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-sub { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 18px; color: rgba(245,240,232,0.7); margin-bottom: 36px; }
+  .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: #FF6B00; color: white; padding: 14px 32px; border-radius: 4px; font-weight: 600; font-size: 15px; letter-spacing: 0.5px; text-decoration: none; border: 2px solid transparent; transition: all 0.25s; display: inline-block; }
+  .btn-primary:hover { background: #e05d00; }
+  .btn-outline { background: transparent; color: #F5F0E8; padding: 14px 32px; border-radius: 4px; font-weight: 500; font-size: 15px; letter-spacing: 0.5px; text-decoration: none; border: 2px solid rgba(245,240,232,0.4); transition: all 0.25s; display: inline-block; }
+  .lang-cycle { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+  .lang-pill { padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 500; }
+  .lang-pill.active { background: #FF6B00; color: white; }
+  .lang-pill.inactive { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.4); }
+  .scroll-bar { position: absolute; bottom: 24px; right: 40px; width: 1px; height: 48px; background: linear-gradient(to bottom, #FF6B00, transparent); }
+
+  /* DIVIDER */
+  .divider { text-align: center; padding: 16px; background: #FDF6EC; position: relative; }
+  .divider::before,.divider::after { content:''; position:absolute; top:50%; width:38%; height:1px; background:linear-gradient(to right,transparent,#D4A017,transparent); }
+  .divider::before { left:5%; } .divider::after { right:5%; }
+  .divider span { color: #D4A017; font-size: 20px; position:relative; z-index:1; }
+
+  /* DISHES */
+  .section-dishes { background: #FDF6EC; color: #2C1810; padding: 80px 40px; }
+  .section-heading { text-align: center; margin-bottom: 56px; }
+  .section-heading h2 { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; color: #2C1810; margin-top: 8px; }
+  .dishes-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; max-width: 1100px; margin: 0 auto; }
+  .dish-card { border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 8px 40px rgba(44,24,16,0.1); transition: transform 0.3s, box-shadow 0.3s; }
+  .dish-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(44,24,16,0.16); }
+  .dish-img { height: 220px; background: #e8d5c4 center/cover no-repeat; position: relative; }
+  .dish-img::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(44,24,16,0.5) 0%,transparent 50%); }
+  .dish-badge { position:absolute; top:14px; right:14px; background:#FF6B00; color:white; font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:4px 10px; border-radius:2px; z-index:1; }
+  .dish-info { padding: 20px 22px 24px; }
+  .dish-info h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #2C1810; margin-bottom: 6px; }
+  .dish-info p { font-size: 13px; color: #7a6258; line-height: 1.6; margin-bottom: 16px; }
+  .dish-footer { display: flex; align-items: center; justify-content: space-between; }
+  .dish-price { font-family: 'DM Serif Display', serif; font-size: 26px; color: #8B1A1A; }
+  .dish-cta { background: #FF6B00; color: white; border: none; padding: 8px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; }
+
+  /* STORY */
+  .section-story { background: #1A1A1A; padding: 80px 40px; }
+  .story-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto; }
+  .story-img { height: 420px; border-radius: 12px; background: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=700&q=80&fit=crop') center/cover; position: relative; overflow: hidden; }
+  .story-img::after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(26,8,0,0.7) 0%, transparent 50%); }
+  .story-img .caption { position:absolute; bottom:20px; left:20px; font-family:'Playfair Display',serif; font-size:17px; color:#F5F0E8; z-index:1; }
+  .story-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; }
+  .stat { background: rgba(255,107,0,0.08); border: 1px solid rgba(255,107,0,0.2); padding: 18px 20px; border-radius: 8px; }
+  .stat .num { font-family: 'DM Serif Display', serif; font-size: 34px; color: #FF6B00; display: block; margin-bottom: 4px; }
+  .stat .lbl { font-size: 11px; color: rgba(245,240,232,0.5); text-transform: uppercase; letter-spacing: 1.5px; }
+
+  /* MENU PREVIEW */
+  .section-menu { background: #FDF6EC; padding: 80px 40px; text-align: center; }
+  .menu-tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap; }
+  .menu-tab { padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid rgba(44,24,16,0.15); color: #7a6258; background: white; transition: all 0.2s; }
+  .menu-tab.active { background: #FF6B00; color: white; border-color: #FF6B00; }
+  .menu-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+  .menu-card { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border: 1px solid rgba(44,24,16,0.08); border-radius: 12px; padding: 14px; text-align: left; display: flex; align-items: center; gap: 12px; transition: box-shadow 0.2s, transform 0.2s; }
+  .menu-card:hover { box-shadow: 0 8px 30px rgba(44,24,16,0.1); transform: translateY(-2px); }
+  .menu-card-img { width: 68px; height: 68px; border-radius: 8px; flex-shrink: 0; background: #e8d5c4 center/cover no-repeat; }
+  .menu-card-body h4 { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 600; color: #2C1810; margin-bottom: 4px; line-height: 1.3; }
+  .menu-card-body .price { font-family: 'DM Serif Display', serif; font-size: 16px; color: #8B1A1A; }
+  .veg-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 5px; vertical-align: middle; }
+  .dot-veg { background: #2ecc71; } .dot-nonveg { background: #e74c3c; }
+
+  /* REVIEWS */
+  .section-reviews { background: #2C1810; color: #F5F0E8; padding: 80px 40px; text-align: center; }
+  .reviews-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1000px; margin: 40px auto 0; }
+  .review-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 24px; text-align: left; }
+  .stars { color: #D4A017; font-size: 15px; letter-spacing: 2px; margin-bottom: 12px; }
+  .review-text { font-size: 14px; line-height: 1.75; color: rgba(245,240,232,0.8); margin-bottom: 14px; font-style: italic; }
+  .reviewer { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #FF6B00; }
+
+  /* LOCATION */
+  .section-location { background: #1A1A1A; padding: 80px 40px; }
+  .location-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; max-width: 1100px; margin: 0 auto; }
+  .map-ph { height: 300px; border-radius: 12px; background: #222; border: 1px solid #333; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #555; font-size: 13px; }
+  .info-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; font-size: 14px; color: rgba(245,240,232,0.75); line-height: 1.6; }
+  .info-icon { color: #FF6B00; font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+
+  /* FOOTER */
+  footer { background: #0f0f0f; color: rgba(245,240,232,0.55); padding: 60px 40px 28px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; max-width: 1100px; margin: 0 auto 36px; }
+  .footer-brand h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: #F5F0E8; margin-bottom: 12px; }
+  .footer-brand h3 span { color: #FF6B00; }
+  .footer-brand p { font-size: 13px; line-height: 1.85; }
+  .footer-col h4 { color: #D4A017; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; font-weight: 600; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 8px; font-size: 13px; }
+  .footer-col a { color: rgba(245,240,232,0.55); text-decoration: none; transition: color 0.2s; }
+  .footer-col a:hover { color: #FF6B00; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 18px; text-align: center; font-size: 12px; }
+
+  /* WHATSAPP FLOAT */
+  .wa-float { position: fixed; bottom: 28px; right: 28px; width: 52px; height: 52px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.45); z-index: 200; cursor: pointer; }
+  .wa-float svg { width: 28px; height: 28px; fill: white; }
+
+  /* APPROVAL */
+  .approval { position: fixed; bottom: 96px; right: 28px; background: #1a1a1a; border: 1px solid #333; border-radius: 10px; padding: 14px 18px; z-index: 300; width: 210px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+  .approval strong { color: #F5F0E8; font-size: 13px; display: block; margin-bottom: 6px; }
+  .approval p { font-size: 11px; color: #888; line-height: 1.5; }
+  .approval p span { color: #FF6B00; }
+</style>
+</head>
+<body>
+
+<div class="preview-bar">
+  <span class="dot"></span>
+  <span>THALI HOUSE — Full Homepage Preview</span>
+  <span style="margin-left:auto;color:#555;">Scroll to see all sections</span>
+</div>
+
+<!-- HERO -->
+<div style="position:relative; height:100vh; min-height:600px; overflow:hidden;">
+  <nav class="nav">
+    <div class="nav-logo">Thali <span>House</span></div>
+    <ul class="nav-links">
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">Order</a></li>
+      <li><a href="#">Reserve</a></li>
+      <li><a href="#">Offers</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="nav-lang">
+      <button class="active">MR</button>
+      <button>HI</button>
+      <button>EN</button>
+      <button>KN</button>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-img"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Established 2019 &nbsp;·&nbsp; Ichalkaranji, Maharashtra</div>
+      <h1 class="hero-tagline">आस्वाद घ्या,<br>आनंद घ्या</h1>
+      <p class="hero-sub">Authentic Maharashtrian Thali — स्वाद का अनुभव करें</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-primary">Order Now</a>
+        <a href="#" class="btn-outline">Reserve a Table</a>
+      </div>
+    </div>
+    <div class="lang-cycle">
+      <span class="lang-pill active">मराठी</span>
+      <span class="lang-pill inactive">हिंदी</span>
+      <span class="lang-pill inactive">English</span>
+      <span class="lang-pill inactive">ಕನ್ನಡ</span>
+    </div>
+    <div class="scroll-bar"></div>
+  </div>
+</div>
+
+<div class="divider"><span>✦ &nbsp;✦ &nbsp;✦</span></div>
+
+<!-- SIGNATURE DISHES -->
+<div class="section-dishes">
+  <div class="section-heading">
+    <div class="section-label">Signature Dishes · विशेष पदार्थ</div>
+    <h2>Our Most-Loved Thalis</h2>
+  </div>
+  <div class="dishes-grid">
+    <div class="dish-card">
+      <div class="dish-img" style="background-image:url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80&fit=crop')">
+        <span class="dish-badge">Best Seller</span>
+      </div>
+      <div class="dish-info">
+        <h3>Chicken Fry Thali</h3>
+        <p>Crispy fried chicken with Bhakri, Tambda & Pandhra Rassa, Solkadhi, Rice, and seasonal sabzi.</p>
+        <div class="dish-footer">
+          <span class="dish-price">₹250</span>
+          <button class="dish-cta">Order Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <div class="dish-img" style="background-image:url('https://images.unsplash.com/photo-1567188040759-fb8a883dc6d6?w=600&q=80&fit=crop')">
+        <span class="dish-badge" style="background:#8B1A1A">Chef's Pick</span>
+      </div>
+      <div class="dish-info">
+        <h3>Mutton Thali</h3>
+        <p>Slow-cooked Kolhapuri mutton with Bhakri, two types of Rassa, rice, and traditional condiments.</p>
+        <div class="dish-footer">
+          <span class="dish-price">₹300</span>
+          <button class="dish-cta">Order Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <div class="dish-img" style="background-image:url('https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&q=80&fit=crop')">
+        <span class="dish-badge" style="background:#2ecc71">Pure Veg</span>
+      </div>
+      <div class="dish-info">
+        <h3>Veg Special Thali</h3>
+        <p>Fresh seasonal vegetables, dal, Bhakri, rice, papad, pickle, and sweet — a complete meal.</p>
+        <div class="dish-footer">
+          <span class="dish-price">₹180</span>
+          <button class="dish-cta">Order Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider" style="background:#1A1A1A;"><span style="color:#333;">—</span></div>
+
+<!-- OUR STORY -->
+<div class="section-story">
+  <div class="story-inner">
+    <div>
+      <div class="section-label">Our Story · आमची कहाणी</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:38px;color:#F5F0E8;margin:10px 0 18px;line-height:1.2;">7 Years of Serving<br>Ichalkaranji</h2>
+      <p style="color:rgba(245,240,232,0.72);font-size:15px;line-height:1.9;margin-bottom:14px;">Since 2019, Thali House has been bringing the authentic flavors of Maharashtra to every table in Ichalkaranji. Our kitchen is rooted in tradition — real Bhakri, real Tambda Rassa, and the kind of food that reminds you of home.</p>
+      <p style="color:rgba(245,240,232,0.55);font-size:13px;line-height:1.8;">Located at Bavaskar Building, RB Road, we serve this city with Maharashtrian warmth — morning to night, every single day.</p>
+      <div class="story-stats">
+        <div class="stat"><span class="num">967+</span><span class="lbl">Happy Reviews</span></div>
+        <div class="stat"><span class="num">4.0★</span><span class="lbl">Google Rating</span></div>
+        <div class="stat"><span class="num">7 Yrs</span><span class="lbl">In Business</span></div>
+        <div class="stat"><span class="num">20+</span><span class="lbl">Menu Items</span></div>
+      </div>
+    </div>
+    <div class="story-img"><div class="caption">आमच्या घरचे जेवण</div></div>
+  </div>
+</div>
+
+<div class="divider"><span>✦ &nbsp;✦ &nbsp;✦</span></div>
+
+<!-- MENU PREVIEW -->
+<div class="section-menu">
+  <div class="section-label">Menu · मेनू</div>
+  <h2 style="font-family:'Playfair Display',serif;font-size:38px;color:#2C1810;margin:8px 0 32px;">Explore Our Menu</h2>
+  <div class="menu-tabs">
+    <button class="menu-tab active">Thali</button>
+    <button class="menu-tab">Starters</button>
+    <button class="menu-tab">Main Course</button>
+    <button class="menu-tab">Breads</button>
+    <button class="menu-tab">Rice</button>
+    <button class="menu-tab">Beverages</button>
+    <button class="menu-tab">Snacks</button>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card">
+      <div class="menu-card-img" style="background-image:url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=150&q=80&fit=crop')"></div>
+      <div class="menu-card-body"><span class="veg-dot dot-nonveg"></span><h4>Chicken Fry Thali</h4><div class="price">₹250</div></div>
+    </div>
+    <div class="menu-card">
+      <div class="menu-card-img" style="background-image:url('https://images.unsplash.com/photo-1567188040759-fb8a883dc6d6?w=150&q=80&fit=crop')"></div>
+      <div class="menu-card-body"><span class="veg-dot dot-nonveg"></span><h4>Mutton Fry Thali</h4><div class="price">₹300</div></div>
+    </div>
+    <div class="menu-card">
+      <div class="menu-card-img" style="background-image:url('https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=150&q=80&fit=crop')"></div>
+      <div class="menu-card-body"><span class="veg-dot dot-veg"></span><h4>Veg Special Bhakri Thali</h4><div class="price">₹180</div></div>
+    </div>
+    <div class="menu-card">
+      <div class="menu-card-img" style="background-image:url('https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=150&q=80&fit=crop')"></div>
+      <div class="menu-card-body"><span class="veg-dot dot-nonveg"></span><h4>Special Non-Veg Thali</h4><div class="price">₹350</div></div>
+    </div>
+  </div>
+  <a href="#" class="btn-primary" style="display:inline-block;margin-top:36px;text-decoration:none;background:#8B1A1A;">View Full Menu</a>
+</div>
+
+<!-- REVIEWS -->
+<div class="section-reviews">
+  <div class="section-label" style="color:#D4A017;">Customer Love · ग्राहकांचे मत</div>
+  <h2 style="font-family:'Playfair Display',serif;font-size:38px;margin:8px 0;">What Our Guests Say</h2>
+  <p style="color:rgba(245,240,232,0.5);font-size:14px;margin-top:6px;">967+ reviews &nbsp;·&nbsp; 4.0 / 5 on Google</p>
+  <div class="reviews-row">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"The Chicken Fry Thali is absolutely amazing! Perfect balance of Tambda Rassa and crispy chicken. Feels just like home food."</p>
+      <span class="reviewer">— Rahul M., Ichalkaranji</span>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Best Solkadhi I've had in years. The Mutton Thali is generous and authentic. Staff is very friendly too."</p>
+      <span class="reviewer">— Priya K., Kolhapur</span>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★☆</div>
+      <p class="review-text">"Clean place, great food. The Bhakri is freshly made and soft. Veg Thali has so many items for just ₹150!"</p>
+      <span class="reviewer">— Suresh B., Sangli</span>
+    </div>
+  </div>
+</div>
+
+<!-- LOCATION -->
+<div class="section-location">
+  <div style="text-align:center;margin-bottom:56px;">
+    <div class="section-label">Find Us · आम्हाला भेटा</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:38px;color:#F5F0E8;margin-top:8px;">Visit Thali House</h2>
+  </div>
+  <div class="location-inner">
+    <div class="map-ph">
+      <div style="font-size:36px;">🗺️</div>
+      <div>Google Maps Embed</div>
+      <div style="font-size:11px;color:#444;">Bavaskar Building, RB Road, Kagwade Mala</div>
+    </div>
+    <div>
+      <div class="info-row"><span class="info-icon">📍</span>Bavaskar Building, RB Road, Kagwade Mala, Ichalkaranji, Maharashtra 416115</div>
+      <div class="info-row"><span class="info-icon">📞</span>+91 88883 77788</div>
+      <div class="info-row"><span class="info-icon">🕐</span>Open Every Day: 11:00 AM – 11:00 PM</div>
+      <div class="info-row"><span class="info-icon">🛵</span>Dine-In · Takeaway · Home Delivery</div>
+      <div style="display:flex;gap:12px;margin-top:24px;">
+        <a href="tel:+918888377788" class="btn-primary" style="text-decoration:none;font-size:14px;padding:12px 24px;">Call Now</a>
+        <a href="#" class="btn-outline" style="text-decoration:none;font-size:14px;padding:12px 24px;color:#F5F0E8;border-color:rgba(245,240,232,0.35);">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Thali <span>House</span></h3>
+      <p>Authentic Maharashtrian cuisine since 2019. Serving Ichalkaranji with love, flavour, and tradition — every single day.</p>
+      <p style="margin-top:12px;font-size:11px;color:#444;">© 2026 Thali House. All rights reserved.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Menu</a></li>
+        <li><a href="#">Order Online</a></li>
+        <li><a href="#">Reservations</a></li>
+        <li><a href="#">Offers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="#">Thali Combos</a></li>
+        <li><a href="#">Starters</a></li>
+        <li><a href="#">Main Course</a></li>
+        <li><a href="#">Beverages</a></li>
+        <li><a href="#">Breads & Rice</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li>RB Road, Ichalkaranji</li>
+        <li>Maharashtra 416115</li>
+        <li><a href="tel:+918888377788">+91 88883 77788</a></li>
+        <li style="margin-top:8px;"><a href="#">WhatsApp Chat</a></li>
+        <li><a href="#">Google Maps</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">Thali House — आस्वाद घ्या, आनंद घ्या</div>
+</footer>
+
+<!-- WhatsApp float -->
+<div class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</div>
+
+<!-- Approval panel -->
+<div class="approval">
+  <strong>Homepage Design</strong>
+  <p>Full layout preview. Scroll to see all sections.</p>
+  <p style="margin-top:6px;"><span>Reply in terminal</span> to approve or request changes.</p>
+</div>
+
+</body>
+</html>

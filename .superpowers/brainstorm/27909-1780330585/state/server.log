@@ -1,0 +1,4 @@
+{"type":"server-started","port":51460,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:51460","screen_dir":"/Users/ciobanualexandru/thali-house-website/.superpowers/brainstorm/27909-1780330585/content","state_dir":"/Users/ciobanualexandru/thali-house-website/.superpowers/brainstorm/27909-1780330585/state"}
+{"type":"screen-added","file":"/Users/ciobanualexandru/thali-house-website/.superpowers/brainstorm/27909-1780330585/content/hero-layout.html"}
+{"type":"screen-added","file":"/Users/ciobanualexandru/thali-house-website/.superpowers/brainstorm/27909-1780330585/content/animated-preview.html"}
+{"type":"server-stopped","reason":"idle timeout"}
