@@ -1,9 +1,11 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Minus, Plus, Search, ChevronLeft, ChevronRight, Check } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
+import { useAuth } from '../context/AuthContext'
 import { menuData } from '../lib/menuData'
 import { supabase } from '../lib/supabase'
+import toast from 'react-hot-toast'
 import type { MenuCategory, OrderItem, OrderType } from '../lib/types'
 
 type Step = 1 | 2 | 3
@@ -36,6 +38,7 @@ function generateOrderNumber() {
 
 export default function Order() {
   const { t, language } = useLanguage()
+  const { profile } = useAuth()
   const [step, setStep] = useState<Step>(1)
   const [cart, setCart] = useState<OrderItem[]>([])
   const [activeCategory, setActiveCategory] = useState<MenuCategory | 'ALL'>('ALL')
@@ -47,6 +50,17 @@ export default function Order() {
   const [customerName, setCustomerName] = useState('')
   const [whatsapp, setWhatsapp] = useState('')
   const [specialInstructions, setSpecialInstructions] = useState('')
+
+  // Pre-fill from auth profile
+  useEffect(() => {
+    if (profile) {
+      if (profile.full_name && !customerName) setCustomerName(profile.full_name)
+      if (profile.whatsapp_number && !whatsapp) {
+        const num = profile.whatsapp_number.replace('+91', '').replace(/\D/g, '')
+        setWhatsapp(num)
+      }
+    }
+  }, [profile])
 
   // Step 3
   const [orderSuccess, setOrderSuccess] = useState(false)
@@ -103,23 +117,25 @@ export default function Order() {
     setSubmitting(true)
     const num = generateOrderNumber()
     setOrderNumber(num)
-    try {
-      await supabase.from('orders').insert({
-        order_number: num,
-        customer_name: customerName,
-        whatsapp_number: '+91' + whatsapp.replace(/\D/g, ''),
-        order_type: orderType,
-        table_number: orderType === 'dine-in' ? selectedTable : null,
-        items: cart.map((ci) => ({ id: ci.menuItem.id, name: ci.menuItem.name_en, qty: ci.quantity, price: ci.menuItem.price })),
-        subtotal,
-        special_instructions: specialInstructions,
-        payment_method: 'cod',
-        status: 'pending',
-      })
-    } catch {
-      // Silently ignore Supabase errors — still show success
-    }
+    const whatsappFull = '+91' + whatsapp.replace(/\D/g, '')
+    const { error } = await supabase.from('orders').insert({
+      order_number: num,
+      customer_name: customerName,
+      customer_phone: whatsappFull,
+      whatsapp_number: whatsappFull,
+      order_type: orderType,
+      items: cart.map((ci) => ({ id: ci.menuItem.id, name: ci.menuItem.name_en, qty: ci.quantity, price: ci.menuItem.price })),
+      subtotal,
+      total: subtotal,
+      special_instructions: specialInstructions,
+      payment_method: 'cod',
+      order_status: 'placed',
+    })
     setSubmitting(false)
+    if (error) {
+      console.error('Order insert error:', error)
+    }
+    toast.success('Order placed successfully!')
     setOrderSuccess(true)
   }
 

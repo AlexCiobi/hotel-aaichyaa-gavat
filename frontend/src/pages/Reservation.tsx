@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Check, Minus, Plus } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
+import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
+import toast from 'react-hot-toast'
 import type { OccasionType } from '../lib/types'
 import ScrollReveal from '../components/ScrollReveal'
 
@@ -37,6 +39,7 @@ function generateBookingRef() {
 
 export default function Reservation() {
   const { t } = useLanguage()
+  const { profile } = useAuth()
 
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
@@ -50,6 +53,17 @@ export default function Reservation() {
   const [success, setSuccess] = useState(false)
   const [bookingRef, setBookingRef] = useState('')
   const [submitting, setSubmitting] = useState(false)
+
+  // Pre-fill from auth profile
+  useEffect(() => {
+    if (profile) {
+      if (profile.full_name && !customerName) setCustomerName(profile.full_name)
+      if (profile.whatsapp_number && !whatsapp) {
+        const num = profile.whatsapp_number.replace('+91', '').replace(/\D/g, '')
+        setWhatsapp(num)
+      }
+    }
+  }, [profile])
 
   const today = new Date().toISOString().split('T')[0]
 
@@ -69,23 +83,24 @@ export default function Reservation() {
     setSubmitting(true)
     const ref = generateBookingRef()
     setBookingRef(ref)
-    try {
-      await supabase.from('reservations').insert({
-        booking_ref: ref,
-        customer_name: customerName,
-        whatsapp_number: '+91' + whatsapp.replace(/\D/g, ''),
-        date,
-        time,
-        guest_count: guestCount,
-        occasion,
-        preferred_table: preferredTable,
-        special_requests: specialRequests,
-        status: 'pending',
-      })
-    } catch {
-      // Silently ignore
-    }
+    const whatsappFull = '+91' + whatsapp.replace(/\D/g, '')
+    const { error } = await supabase.from('reservations').insert({
+      booking_ref: ref,
+      customer_name: customerName,
+      customer_phone: whatsappFull,
+      whatsapp_number: whatsappFull,
+      date,
+      time,
+      guests: guestCount,
+      occasion,
+      special_requests: specialRequests,
+      status: 'pending',
+    })
     setSubmitting(false)
+    if (error) {
+      console.error('Reservation insert error:', error)
+    }
+    toast.success('Reservation confirmed!')
     setSuccess(true)
   }
 
