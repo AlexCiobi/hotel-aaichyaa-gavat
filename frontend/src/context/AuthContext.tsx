@@ -84,6 +84,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         total_orders: 0,
         loyalty_points: 0,
       })
+      // Send branded welcome email (fire-and-forget — never blocks signup)
+      supabase.functions.invoke('send-welcome-email', {
+        body: {
+          customer_email: email,
+          customer_name: data.full_name,
+          whatsapp_number: data.whatsapp_number,
+        },
+      }).catch(() => { /* silently ignore if email fails */ })
     }
     return { error: null }
   }

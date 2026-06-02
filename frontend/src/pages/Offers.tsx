@@ -148,7 +148,7 @@ export default function Offers() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={false}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
@@ -179,7 +179,7 @@ export default function Offers() {
         </div>
         <div className="relative z-10 text-center px-4">
           <motion.span
-            initial={{ opacity: 0, y: 10 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="text-saffron text-xs font-semibold uppercase tracking-[0.2em] block mb-3"
@@ -187,7 +187,7 @@ export default function Offers() {
             Thali House
           </motion.span>
           <motion.h1
-            initial={{ opacity: 0, y: 15 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="font-playfair font-bold text-4xl sm:text-5xl text-white mb-3"
@@ -195,7 +195,7 @@ export default function Offers() {
             Today's Offers
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
             className="text-white/50 text-sm"

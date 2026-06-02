@@ -12,7 +12,7 @@ import ScrollReveal from '../components/ScrollReveal'
 import { menuData } from '../lib/menuData'
 import type { Language } from '../lib/types'
 
-const HERO_BG = 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1800&q=80'
+const HERO_BG = '/images/hero-1.jpg'
 
 const LANG_CYCLE: Language[] = ['mr', 'hi', 'en', 'kn']
 
@@ -121,7 +121,7 @@ export default function Home() {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      initial={false}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4 }}
@@ -205,7 +205,7 @@ export default function Home() {
         <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={false}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
             className="inline-flex items-center gap-2 mb-6"
@@ -221,7 +221,7 @@ export default function Home() {
             <AnimatePresence mode="wait">
               <motion.h1
                 key={currentLang}
-                initial={{ opacity: 0, y: 30 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 0.55, ease: 'easeInOut' }}
@@ -239,7 +239,7 @@ export default function Home() {
             <AnimatePresence mode="wait">
               <motion.p
                 key={`sub-${currentLang}`}
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, ease: 'easeInOut', delay: 0.08 }}
@@ -254,7 +254,7 @@ export default function Home() {
 
           {/* CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.5 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
@@ -279,7 +279,7 @@ export default function Home() {
 
           {/* Language pills */}
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
             className="flex items-center justify-center gap-2 mt-8"
@@ -433,7 +433,7 @@ export default function Home() {
                 <motion.img
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                  src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d6?w=800&q=80"
+                  src="/images/hero-2.jpg"
                   alt="Our kitchen"
                   className="w-full rounded-2xl shadow-2xl object-cover h-96 sm:h-[480px]"
                   loading="lazy"

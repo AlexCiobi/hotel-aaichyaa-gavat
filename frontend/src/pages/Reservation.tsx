@@ -106,7 +106,7 @@ export default function Reservation() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={false}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
@@ -115,7 +115,7 @@ export default function Reservation() {
       {/* Hero */}
       <div className="relative h-48 sm:h-60 flex items-center justify-center overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=1400&q=80"
+          src="/images/hero-2.jpg"
           alt="Reserve a table"
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
@@ -123,7 +123,7 @@ export default function Reservation() {
         <div className="absolute inset-0 bg-gradient-to-b from-maroon/80 to-charcoal/90" />
         <div className="relative z-10 text-center">
           <motion.span
-            initial={{ opacity: 0, y: 10 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="text-gold text-xs font-semibold uppercase tracking-[0.2em] block mb-2"
@@ -131,7 +131,7 @@ export default function Reservation() {
             Thali House
           </motion.span>
           <motion.h1
-            initial={{ opacity: 0, y: 15 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="font-playfair font-bold text-3xl sm:text-4xl text-white"
@@ -146,13 +146,13 @@ export default function Reservation() {
           {success ? (
             <motion.div
               key="success"
-              initial={{ scale: 0.85, opacity: 0 }}
+              initial={false}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: 'spring', stiffness: 200, damping: 18 }}
               className="bg-white rounded-3xl shadow-xl p-10 text-center"
             >
               <motion.div
-                initial={{ scale: 0 }}
+                initial={false}
                 animate={{ scale: 1 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.15 }}
                 className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
@@ -258,7 +258,7 @@ export default function Reservation() {
                     </motion.button>
                     <motion.span
                       key={guestCount}
-                      initial={{ scale: 0.8, opacity: 0 }}
+                      initial={false}
                       animate={{ scale: 1, opacity: 1 }}
                       className="font-dmserif text-4xl text-charcoal w-12 text-center"
                     >

@@ -42,9 +42,8 @@ export default function Nav() {
   return (
     <>
       <motion.nav
-        initial={{ y: -80, opacity: 0 }}
+        initial={false}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled || menuOpen
             ? 'bg-charcoal/95 backdrop-blur-md shadow-lg'
@@ -68,7 +67,7 @@ export default function Nav() {
               {NAV_LINKS.map(({ to, key }, i) => {
                 const isActive = location.pathname === to
                 return (
-                  <motion.div key={to} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + i * 0.07 }}>
+                  <motion.div key={to} initial={false} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + i * 0.07 }}>
                     <Link to={to} className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 ${isActive ? 'text-saffron' : 'text-white/80 hover:text-white'}`}>
                       {t(key)}
                       {isActive && <motion.span layoutId="nav-underline" className="absolute bottom-0 left-3 right-3 h-0.5 bg-saffron rounded-full" />}
@@ -102,7 +101,7 @@ export default function Nav() {
                   </button>
                   <AnimatePresence>
                     {userMenuOpen && (
-                      <motion.div initial={{ opacity: 0, y: -8, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                      <motion.div initial={false} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8, scale: 0.95 }}
                         className="absolute right-0 top-full mt-2 w-48 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50">
                         <Link to="/auth/profile" onClick={() => setUserMenuOpen(false)}
                           className="flex items-center gap-2.5 px-4 py-3 text-sm text-charcoal hover:bg-offwhite transition-colors">
@@ -143,14 +142,14 @@ export default function Nav() {
       {/* Mobile drawer */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div key="mobile-drawer" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
+          <motion.div key="mobile-drawer" initial={false} animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.25, ease: 'easeInOut' }}
             className="fixed top-16 left-0 right-0 z-40 bg-charcoal/98 backdrop-blur-md overflow-hidden">
             <div className="px-4 py-4 flex flex-col gap-1">
               {NAV_LINKS.map(({ to, key }, i) => {
                 const isActive = location.pathname === to
                 return (
-                  <motion.div key={to} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06 }}>
+                  <motion.div key={to} initial={false} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06 }}>
                     <Link to={to} className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 ${isActive ? 'bg-saffron/20 text-saffron' : 'text-white/80 hover:bg-white/10 hover:text-white'}`}>
                       {t(key)}
                     </Link>

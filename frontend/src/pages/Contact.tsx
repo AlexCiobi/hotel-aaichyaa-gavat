@@ -47,7 +47,7 @@ export default function Contact() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={false}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
@@ -58,7 +58,7 @@ export default function Contact() {
         <div className="absolute inset-0 bg-gradient-to-br from-charcoal to-brown/80" />
         <div className="relative z-10 text-center px-4">
           <motion.div
-            initial={{ scale: 0 }}
+            initial={false}
             animate={{ scale: 1 }}
             transition={{ type: 'spring', stiffness: 200, damping: 18 }}
             className="flex items-center justify-center mb-3"
@@ -68,7 +68,7 @@ export default function Contact() {
             </div>
           </motion.div>
           <motion.h1
-            initial={{ opacity: 0, y: 15 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="font-playfair font-bold text-3xl sm:text-4xl text-white"
@@ -121,7 +121,7 @@ export default function Contact() {
                       {copied ? (
                         <motion.span
                           key="check"
-                          initial={{ scale: 0 }}
+                          initial={false}
                           animate={{ scale: 1 }}
                           exit={{ scale: 0 }}
                           className="flex items-center gap-1 text-green-600"
@@ -132,7 +132,7 @@ export default function Contact() {
                       ) : (
                         <motion.span
                           key="copy"
-                          initial={{ scale: 0 }}
+                          initial={false}
                           animate={{ scale: 1 }}
                           exit={{ scale: 0 }}
                           className="flex items-center gap-1"
@@ -201,7 +201,7 @@ export default function Contact() {
                     <h4 className="font-semibold text-charcoal text-sm">{t('contact.hours')}</h4>
                     <AnimatePresence>
                       <motion.span
-                        initial={{ opacity: 0, scale: 0.8 }}
+                        initial={false}
                         animate={{ opacity: 1, scale: 1 }}
                         className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full mt-0.5 ${
                           openNow
@@ -222,7 +222,7 @@ export default function Contact() {
                   ].map((day, i) => (
                     <motion.div
                       key={day}
-                      initial={{ opacity: 0, x: 10 }}
+                      initial={false}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.05 }}
@@ -247,7 +247,7 @@ export default function Contact() {
                   {formSent ? (
                     <motion.div
                       key="sent"
-                      initial={{ scale: 0.9, opacity: 0 }}
+                      initial={false}
                       animate={{ scale: 1, opacity: 1 }}
                       exit={{ scale: 0.9, opacity: 0 }}
                       className="text-center py-6"
@@ -261,7 +261,7 @@ export default function Contact() {
                   ) : (
                     <motion.form
                       key="form"
-                      initial={{ opacity: 1 }}
+                      initial={false}
                       exit={{ opacity: 0 }}
                       onSubmit={handleFormSubmit}
                       className="space-y-3"

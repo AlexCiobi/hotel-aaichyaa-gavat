@@ -48,7 +48,7 @@ export default function Menu() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={false}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
@@ -57,7 +57,7 @@ export default function Menu() {
       {/* Hero banner */}
       <div className="relative h-48 sm:h-64 flex items-center justify-center overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1400&q=80"
+          src="/images/hero-1.jpg"
           alt="Menu"
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
@@ -65,7 +65,7 @@ export default function Menu() {
         <div className="absolute inset-0 bg-gradient-to-b from-saffron/70 to-charcoal/90" />
         <div className="relative z-10 text-center px-4">
           <motion.span
-            initial={{ opacity: 0, y: 10 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="text-saffron/80 text-xs font-semibold uppercase tracking-[0.2em] block mb-2"
@@ -73,7 +73,7 @@ export default function Menu() {
             Thali House
           </motion.span>
           <motion.h1
-            initial={{ opacity: 0, y: 15 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="font-playfair font-bold text-3xl sm:text-4xl text-white"
@@ -174,7 +174,7 @@ export default function Menu() {
           {filteredItems.length === 0 ? (
             <motion.div
               key="empty"
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={false}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               className="text-center py-20"
@@ -186,7 +186,7 @@ export default function Menu() {
           ) : (
             <motion.div
               key="grid"
-              initial={{ opacity: 0 }}
+              initial={false}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -198,7 +198,7 @@ export default function Menu() {
                   <motion.div
                     key={item.id}
                     layout
-                    initial={{ opacity: 0, scale: 0.92 }}
+                    initial={false}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.92 }}
                     transition={{ delay: Math.min(i * 0.05, 0.3) }}
@@ -241,7 +241,7 @@ export default function Menu() {
                       </p>
                       <div className="flex items-center justify-between">
                         <motion.span
-                          initial={{ scale: 0.8, opacity: 0 }}
+                          initial={false}
                           animate={{ scale: 1, opacity: 1 }}
                           transition={{ delay: 0.1 }}
                           className="font-dmserif text-2xl text-saffron"

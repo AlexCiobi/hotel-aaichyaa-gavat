@@ -8,6 +8,15 @@ import { supabase } from '../lib/supabase'
 import toast from 'react-hot-toast'
 import type { MenuCategory, OrderItem, OrderType } from '../lib/types'
 
+declare global {
+  interface Window {
+    Razorpay: new (opts: Record<string, unknown>) => { open(): void }
+  }
+}
+
+const RAZORPAY_KEY = import.meta.env.VITE_RAZORPAY_KEY_ID ?? ''
+const RAZORPAY_ACTIVE = Boolean(RAZORPAY_KEY && RAZORPAY_KEY !== 'rzp_test_placeholder')
+
 type Step = 1 | 2 | 3
 
 const CATEGORIES: (MenuCategory | 'ALL')[] = [
@@ -67,6 +76,18 @@ export default function Order() {
   const [orderNumber, setOrderNumber] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [paymentMethod, setPaymentMethod] = useState<'cod' | 'razorpay'>('cod')
+
+  // Load Razorpay script when key is active
+  useEffect(() => {
+    if (!RAZORPAY_ACTIVE) return
+    if (document.getElementById('razorpay-script')) return
+    const s = document.createElement('script')
+    s.id = 'razorpay-script'
+    s.src = 'https://checkout.razorpay.com/v1/checkout.js'
+    s.async = true
+    document.body.appendChild(s)
+  }, [])
 
   const filteredItems = useMemo(() => {
     return menuData.filter((item) => {
@@ -118,7 +139,8 @@ export default function Order() {
     const num = generateOrderNumber()
     setOrderNumber(num)
     const whatsappFull = '+91' + whatsapp.replace(/\D/g, '')
-    const { error } = await supabase.from('orders').insert({
+
+    const { data: orderData, error } = await supabase.from('orders').insert({
       order_number: num,
       customer_name: customerName,
       customer_phone: whatsappFull,
@@ -128,13 +150,47 @@ export default function Order() {
       subtotal,
       total: subtotal,
       special_instructions: specialInstructions,
-      payment_method: 'cod',
+      payment_method: paymentMethod,
+      payment_status: 'pending',
       order_status: 'placed',
-    })
+    }).select('id').single()
+
     setSubmitting(false)
+
     if (error) {
       console.error('Order insert error:', error)
+      toast.error('Failed to place order. Please try again.')
+      return
     }
+
+    if (paymentMethod === 'razorpay' && RAZORPAY_ACTIVE && window.Razorpay) {
+      const rzp = new window.Razorpay({
+        key: RAZORPAY_KEY,
+        amount: subtotal * 100,
+        currency: 'INR',
+        name: 'Thali House',
+        description: `Order ${num} — ${cart.length} item${cart.length !== 1 ? 's' : ''}`,
+        handler: async (response: Record<string, string>) => {
+          await supabase.from('orders').update({
+            payment_status: 'paid',
+            razorpay_payment_id: response.razorpay_payment_id,
+          }).eq('id', orderData.id)
+          toast.success('Payment successful!')
+          setOrderSuccess(true)
+        },
+        prefill: { name: customerName, contact: whatsappFull },
+        theme: { color: '#FF6B00' },
+        modal: {
+          ondismiss: async () => {
+            await supabase.from('orders').update({ payment_status: 'failed' }).eq('id', orderData.id)
+            toast.error('Payment cancelled')
+          },
+        },
+      } as Record<string, unknown>)
+      rzp.open()
+      return
+    }
+
     toast.success('Order placed successfully!')
     setOrderSuccess(true)
   }
@@ -147,7 +203,7 @@ export default function Order() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={false}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
@@ -196,12 +252,12 @@ export default function Order() {
           {orderSuccess && (
             <motion.div
               key="success"
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={false}
               animate={{ scale: 1, opacity: 1 }}
               className="bg-white rounded-3xl shadow-xl p-10 text-center max-w-lg mx-auto"
             >
               <motion.div
-                initial={{ scale: 0 }}
+                initial={false}
                 animate={{ scale: 1 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.1 }}
                 className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
@@ -238,7 +294,7 @@ export default function Order() {
                 {step === 1 && (
                   <motion.div
                     key="step1"
-                    initial={{ opacity: 0, x: 30 }}
+                    initial={false}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -30 }}
                     transition={{ duration: 0.3 }}
@@ -352,7 +408,7 @@ export default function Order() {
                 {step === 2 && (
                   <motion.div
                     key="step2"
-                    initial={{ opacity: 0, x: 30 }}
+                    initial={false}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -30 }}
                     transition={{ duration: 0.3 }}
@@ -496,7 +552,7 @@ export default function Order() {
                 {step === 3 && (
                   <motion.div
                     key="step3"
-                    initial={{ opacity: 0, x: 30 }}
+                    initial={false}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -30 }}
                     transition={{ duration: 0.3 }}
@@ -543,15 +599,38 @@ export default function Order() {
                     <div className="bg-white rounded-2xl p-5 shadow-sm">
                       <h3 className="font-semibold text-charcoal mb-3">Payment Method</h3>
                       <div className="grid grid-cols-2 gap-3">
-                        <div className="border-2 border-saffron bg-saffron/5 rounded-xl p-4 text-center">
+                        <motion.button
+                          whileTap={{ scale: 0.97 }}
+                          onClick={() => setPaymentMethod('cod')}
+                          className={`border-2 rounded-xl p-4 text-center transition-all duration-200 ${
+                            paymentMethod === 'cod' ? 'border-saffron bg-saffron/5' : 'border-charcoal/10 bg-white hover:border-saffron/30'
+                          }`}
+                        >
                           <div className="text-xl mb-1">💵</div>
-                          <div className="text-sm font-semibold text-saffron">{t('orderPage.codOption')}</div>
-                        </div>
-                        <div className="border-2 border-charcoal/10 rounded-xl p-4 text-center opacity-60">
-                          <div className="text-xl mb-1">💳</div>
-                          <div className="text-sm font-semibold text-charcoal">Razorpay</div>
-                          <span className="text-xs bg-charcoal/10 text-charcoal/50 px-2 py-0.5 rounded-full mt-1 inline-block">Coming Soon</span>
-                        </div>
+                          <div className={`text-sm font-semibold ${paymentMethod === 'cod' ? 'text-saffron' : 'text-charcoal/70'}`}>
+                            {t('orderPage.codOption')}
+                          </div>
+                        </motion.button>
+                        {RAZORPAY_ACTIVE ? (
+                          <motion.button
+                            whileTap={{ scale: 0.97 }}
+                            onClick={() => setPaymentMethod('razorpay')}
+                            className={`border-2 rounded-xl p-4 text-center transition-all duration-200 ${
+                              paymentMethod === 'razorpay' ? 'border-blue-500 bg-blue-50' : 'border-charcoal/10 bg-white hover:border-blue-300'
+                            }`}
+                          >
+                            <div className="text-xl mb-1">💳</div>
+                            <div className={`text-sm font-semibold ${paymentMethod === 'razorpay' ? 'text-blue-600' : 'text-charcoal/70'}`}>
+                              Pay Online
+                            </div>
+                          </motion.button>
+                        ) : (
+                          <div className="border-2 border-charcoal/10 rounded-xl p-4 text-center opacity-50 cursor-not-allowed">
+                            <div className="text-xl mb-1">💳</div>
+                            <div className="text-sm font-semibold text-charcoal/50">Razorpay</div>
+                            <span className="text-xs bg-charcoal/10 text-charcoal/40 px-2 py-0.5 rounded-full mt-1 inline-block">Coming Soon</span>
+                          </div>
+                        )}
                       </div>
                     </div>
 
@@ -561,7 +640,7 @@ export default function Order() {
                       disabled={submitting}
                       className="w-full bg-saffron hover:bg-orange-600 disabled:bg-saffron/60 text-white font-bold text-lg py-4 rounded-2xl shadow-lg shadow-saffron/30 transition-all duration-200"
                     >
-                      {submitting ? 'Placing Order...' : t('buttons.placeOrder')} — ₹{subtotal}
+                      {submitting ? 'Placing Order...' : paymentMethod === 'razorpay' ? `Pay ₹${subtotal} Online` : `${t('buttons.placeOrder')} — ₹${subtotal}`}
                     </motion.button>
                   </motion.div>
                 )}
@@ -657,7 +736,7 @@ export default function Order() {
         {!orderSuccess && cart.length > 0 && step === 1 && (
           <motion.div
             key="mobile-cart"
-            initial={{ y: 100, opacity: 0 }}
+            initial={false}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}

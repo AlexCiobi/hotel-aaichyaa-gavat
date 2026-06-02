@@ -210,7 +210,7 @@ export default function MenuAdmin() {
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-3">
                             <img src={item.image_url} alt={item.name_en} className="w-10 h-10 rounded-lg object-cover flex-shrink-0"
-                              onError={e => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1567337710282-00832b415979?w=80&q=60' }} />
+                              onError={e => { (e.target as HTMLImageElement).src = '/images/veg-thali.jpg' }} />
                             <span className="font-medium text-charcoal line-clamp-1">{item.name_en}</span>
                           </div>
                         </td>

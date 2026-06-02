@@ -23,7 +23,7 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen bg-charcoal flex items-center justify-center px-4">
-      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="w-full max-w-md">
+      <motion.div initial={false} animate={{ opacity: 1, scale: 1 }} className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-saffron rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-saffron/30">
             <ShieldCheck size={32} className="text-white" />

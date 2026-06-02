@@ -7,14 +7,14 @@ export default function WhatsAppFloat() {
   return (
     <motion.div
       className="fixed bottom-6 right-6 z-50 flex items-center gap-3"
-      initial={{ scale: 0, rotate: -180, opacity: 0 }}
+      initial={false}
       animate={{ scale: 1, rotate: 0, opacity: 1 }}
       transition={{ delay: 2, type: 'spring', stiffness: 260, damping: 20 }}
     >
       <AnimatePresence>
         {showTooltip && (
           <motion.div
-            initial={{ opacity: 0, x: 10 }}
+            initial={false}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 10 }}
             className="bg-charcoal text-white text-sm px-3 py-1.5 rounded-lg whitespace-nowrap shadow-lg"

@@ -58,7 +58,7 @@ export default function Profile() {
   const langLabel: Record<string, string> = { mr: 'मराठी', hi: 'हिंदी', en: 'English', kn: 'ಕನ್ನಡ' }
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
+    <motion.div initial={false} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }} className="page-wrapper pt-20 pb-20 bg-offwhite min-h-screen">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 

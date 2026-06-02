@@ -59,7 +59,7 @@ export default function Signup() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+      initial={false} animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.4 }}
       className="min-h-screen bg-offwhite flex items-center justify-center px-4 py-20"
     >
