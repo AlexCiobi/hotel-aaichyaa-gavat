@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        saffron: '#FF6B00',
+        saffron: '#C0272D',
         maroon: '#8B1A1A',
         gold: '#D4A017',
         cream: '#FDF6EC',

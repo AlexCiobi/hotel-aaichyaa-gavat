@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --color-saffron: #FF6B00;
+  --color-saffron: #C0272D;
   --color-maroon: #8B1A1A;
   --color-gold: #D4A017;
   --color-cream: #FDF6EC;
@@ -18,7 +18,7 @@
 }
 
 ::selection {
-  background-color: #FF6B00;
+  background-color: #C0272D;
   color: #fff;
 }
 
@@ -31,11 +31,11 @@
   background: #1A1A1A;
 }
 ::-webkit-scrollbar-thumb {
-  background: #FF6B00;
+  background: #C0272D;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #e05e00;
+  background: #9e1f25;
 }
 
 html {
@@ -105,7 +105,7 @@ body {
   background: rgba(253, 246, 236, 0.08);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 107, 0, 0.15);
+  border: 1px solid rgba(192, 39, 45, 0.15);
 }
 
 .glass-dark {

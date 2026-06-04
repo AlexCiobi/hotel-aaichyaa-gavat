@@ -31,11 +31,9 @@ export default function AdminLayout() {
       {/* Logo */}
       <div className="px-6 py-5 border-b border-white/10">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-saffron flex items-center justify-center">
-            <span className="text-white font-playfair font-bold text-sm">TH</span>
-          </div>
+          <img src="/logo.png" alt="Hotel Aaichyaa Gavat" className="w-9 h-9 rounded-xl object-cover" />
           <div>
-            <div className="text-white font-playfair font-bold text-sm">Thali House</div>
+            <div className="text-white font-playfair font-bold text-sm">Hotel Aaichyaa Gavat</div>
             <div className="text-white/40 text-xs">Admin Panel</div>
           </div>
         </div>
@@ -48,7 +46,7 @@ export default function AdminLayout() {
           return (
             <Link key={to} to={to} onClick={() => setSidebarOpen(false)}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                active ? 'bg-saffron text-white shadow-md shadow-saffron/30' : 'text-white/60 hover:text-white hover:bg-white/10'
+                active ? 'bg-[#C0272D] text-white shadow-md shadow-[#C0272D]/30' : 'text-white/60 hover:text-white hover:bg-white/10'
               }`}>
               <Icon size={18} />
               {label}
@@ -61,8 +59,8 @@ export default function AdminLayout() {
       {/* User + Logout */}
       <div className="px-3 py-4 border-t border-white/10">
         <div className="flex items-center gap-3 px-3 py-2 mb-2">
-          <div className="w-8 h-8 rounded-full bg-saffron/20 flex items-center justify-center">
-            <span className="text-saffron text-xs font-bold">{adminSession?.name?.[0]}</span>
+          <div className="w-8 h-8 rounded-full bg-[#C0272D]/20 flex items-center justify-center">
+            <span className="text-[#C0272D] text-xs font-bold">{adminSession?.name?.[0]}</span>
           </div>
           <div className="flex-1 min-w-0">
             <div className="text-white text-xs font-semibold truncate">{adminSession?.name}</div>

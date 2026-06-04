@@ -85,7 +85,7 @@ export default function App() {
             toastOptions={{
               duration: 3000,
               style: { background: '#1A1A1A', color: '#fff', borderRadius: '12px', fontSize: '14px', fontWeight: '500' },
-              success: { iconTheme: { primary: '#FF6B00', secondary: '#fff' } },
+              success: { iconTheme: { primary: '#C0272D', secondary: '#fff' } },
               error: { iconTheme: { primary: '#ef4444', secondary: '#fff' } },
             }}
           />

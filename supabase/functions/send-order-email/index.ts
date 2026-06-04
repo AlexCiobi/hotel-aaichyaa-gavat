@@ -52,9 +52,9 @@ function buildEmailHtml(p: OrderEmailPayload): string {
 
         <!-- Header -->
         <tr>
-          <td style="background:linear-gradient(135deg,#FF6B00 0%,#e05500 100%);padding:32px;text-align:center">
+          <td style="background:linear-gradient(135deg,#C0272D 0%,#9e1f25 100%);padding:32px;text-align:center">
             <div style="display:inline-block;width:48px;height:48px;background:rgba(255,255,255,0.2);border-radius:50%;line-height:48px;font-size:22px;margin-bottom:12px">🍛</div>
-            <h1 style="margin:0;color:#fff;font-size:26px;font-family:Georgia,serif;font-weight:bold">Thali House</h1>
+            <h1 style="margin:0;color:#fff;font-size:26px;font-family:Georgia,serif;font-weight:bold">Hotel Aaichyaa Gavat</h1>
             <p style="margin:6px 0 0;color:rgba(255,255,255,0.85);font-size:13px">Ichalkaranji, Maharashtra</p>
           </td>
         </tr>
@@ -66,9 +66,9 @@ function buildEmailHtml(p: OrderEmailPayload): string {
             <p style="margin:0 0 24px;color:#666;font-size:14px">Hi ${p.customer_name}, your order has been received.</p>
 
             <!-- Order number badge -->
-            <div style="background:#fff8f2;border:2px solid #FF6B00;border-radius:12px;padding:16px;text-align:center;margin-bottom:24px">
+            <div style="background:#fff8f2;border:2px solid #C0272D;border-radius:12px;padding:16px;text-align:center;margin-bottom:24px">
               <p style="margin:0 0 4px;font-size:12px;color:#999;text-transform:uppercase;letter-spacing:1px">Order Number</p>
-              <p style="margin:0;font-size:28px;font-family:Georgia,serif;color:#FF6B00;font-weight:bold">${p.order_number}</p>
+              <p style="margin:0;font-size:28px;font-family:Georgia,serif;color:#C0272D;font-weight:bold">${p.order_number}</p>
             </div>
 
             <!-- Order details -->
@@ -77,7 +77,7 @@ function buildEmailHtml(p: OrderEmailPayload): string {
               ${itemRows}
               <tr style="background:#f9f5f0">
                 <td style="padding:12px 16px;font-weight:700;font-size:15px;color:#1A1A1A">Total</td>
-                <td style="padding:12px 16px;font-weight:700;font-size:18px;color:#FF6B00;text-align:right">₹${p.subtotal}</td>
+                <td style="padding:12px 16px;font-weight:700;font-size:18px;color:#C0272D;text-align:right">₹${p.subtotal}</td>
               </tr>
             </table>
 
@@ -114,7 +114,7 @@ function buildEmailHtml(p: OrderEmailPayload): string {
         <!-- Footer -->
         <tr>
           <td style="background:#1A1A1A;padding:24px;text-align:center">
-            <p style="margin:0 0 6px;color:#fff;font-size:13px;font-family:Georgia,serif">Thali House</p>
+            <p style="margin:0 0 6px;color:#fff;font-size:13px;font-family:Georgia,serif">Hotel Aaichyaa Gavat</p>
             <p style="margin:0 0 6px;color:#999;font-size:12px">Bavaskar Building, RB Road, Kagwade Mala, Ichalkaranji 416115</p>
             <p style="margin:0;color:#999;font-size:12px">+91 88883 77788</p>
           </td>
@@ -164,7 +164,7 @@ serve(async (req: Request) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: `Thali House <${FROM_EMAIL}>`,
+        from: `Hotel Aaichyaa Gavat <${FROM_EMAIL}>`,
         to: [payload.customer_email],
         subject: `Order Confirmed — ${payload.order_number} 🍛`,
         html,

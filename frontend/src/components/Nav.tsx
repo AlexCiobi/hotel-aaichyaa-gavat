@@ -54,11 +54,9 @@ export default function Nav() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2 flex-shrink-0">
-              <div className="w-9 h-9 rounded-full bg-saffron flex items-center justify-center">
-                <span className="text-white font-playfair font-bold text-sm">TH</span>
-              </div>
+              <img src="/logo.png" alt="Hotel Aaichyaa Gavat" className="w-9 h-9 rounded-full object-cover" />
               <span className="font-playfair font-bold text-xl text-white">
-                Thali <span className="text-saffron">House</span>
+                Hotel <span className="text-[#C0272D]">Aaichyaa Gavat</span>
               </span>
             </Link>
 
@@ -68,9 +66,9 @@ export default function Nav() {
                 const isActive = location.pathname === to
                 return (
                   <motion.div key={to} initial={false} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + i * 0.07 }}>
-                    <Link to={to} className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 ${isActive ? 'text-saffron' : 'text-white/80 hover:text-white'}`}>
+                    <Link to={to} className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 ${isActive ? 'text-[#C0272D]' : 'text-white/80 hover:text-white'}`}>
                       {t(key)}
-                      {isActive && <motion.span layoutId="nav-underline" className="absolute bottom-0 left-3 right-3 h-0.5 bg-saffron rounded-full" />}
+                      {isActive && <motion.span layoutId="nav-underline" className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#C0272D] rounded-full" />}
                     </Link>
                   </motion.div>
                 )
@@ -83,7 +81,7 @@ export default function Nav() {
               <div className="flex items-center gap-0.5 bg-white/10 rounded-full px-1 py-1">
                 {LANGS.map(({ code, label }) => (
                   <button key={code} onClick={() => setLanguage(code)}
-                    className={`text-xs font-semibold px-1.5 sm:px-2 py-0.5 rounded-full transition-all duration-200 ${language === code ? 'bg-saffron text-white' : 'text-white/70 hover:text-white'}`}>
+                    className={`text-xs font-semibold px-1.5 sm:px-2 py-0.5 rounded-full transition-all duration-200 ${language === code ? 'bg-[#C0272D] text-white' : 'text-white/70 hover:text-white'}`}>
                     {label}
                   </button>
                 ))}
@@ -94,7 +92,7 @@ export default function Nav() {
                 <div className="hidden lg:block relative">
                   <button onClick={() => setUserMenuOpen(v => !v)}
                     className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-200">
-                    <div className="w-6 h-6 rounded-full bg-saffron flex items-center justify-center">
+                    <div className="w-6 h-6 rounded-full bg-[#C0272D] flex items-center justify-center">
                       <span className="text-white text-xs font-bold">{displayName[0]?.toUpperCase()}</span>
                     </div>
                     <span className="max-w-[100px] truncate">{displayName}</span>
@@ -105,15 +103,15 @@ export default function Nav() {
                         className="absolute right-0 top-full mt-2 w-48 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50">
                         <Link to="/auth/profile" onClick={() => setUserMenuOpen(false)}
                           className="flex items-center gap-2.5 px-4 py-3 text-sm text-charcoal hover:bg-offwhite transition-colors">
-                          <User size={15} className="text-saffron" /> My Profile
+                          <User size={15} className="text-[#C0272D]" /> My Profile
                         </Link>
                         <Link to="/order" onClick={() => setUserMenuOpen(false)}
                           className="flex items-center gap-2.5 px-4 py-3 text-sm text-charcoal hover:bg-offwhite transition-colors">
-                          <ShoppingBag size={15} className="text-saffron" /> My Orders
+                          <ShoppingBag size={15} className="text-[#C0272D]" /> My Orders
                         </Link>
                         <Link to="/reservation" onClick={() => setUserMenuOpen(false)}
                           className="flex items-center gap-2.5 px-4 py-3 text-sm text-charcoal hover:bg-offwhite transition-colors">
-                          <Calendar size={15} className="text-saffron" /> My Reservations
+                          <Calendar size={15} className="text-[#C0272D]" /> My Reservations
                         </Link>
                       </motion.div>
                     )}
@@ -124,7 +122,7 @@ export default function Nav() {
                   <Link to="/auth/login" className="text-white/70 hover:text-white text-sm font-medium px-3 py-1.5 rounded-full hover:bg-white/10 transition-all duration-200">
                     Sign In
                   </Link>
-                  <Link to="/auth/signup" className="bg-saffron hover:bg-orange-600 text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-all duration-200">
+                  <Link to="/auth/signup" className="bg-[#C0272D] hover:bg-[#9e1f25] text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-all duration-200">
                     Sign Up
                   </Link>
                 </div>
@@ -150,7 +148,7 @@ export default function Nav() {
                 const isActive = location.pathname === to
                 return (
                   <motion.div key={to} initial={false} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06 }}>
-                    <Link to={to} className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 ${isActive ? 'bg-saffron/20 text-saffron' : 'text-white/80 hover:bg-white/10 hover:text-white'}`}>
+                    <Link to={to} className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 ${isActive ? 'bg-[#C0272D]/20 text-[#C0272D]' : 'text-white/80 hover:bg-white/10 hover:text-white'}`}>
                       {t(key)}
                     </Link>
                   </motion.div>
@@ -166,7 +164,7 @@ export default function Nav() {
                 ) : (
                   <div className="flex gap-2 px-4 pt-2">
                     <Link to="/auth/login" className="flex-1 text-center py-2.5 rounded-xl border border-white/20 text-white/70 font-medium text-sm">Sign In</Link>
-                    <Link to="/auth/signup" className="flex-1 text-center py-2.5 rounded-xl bg-saffron text-white font-semibold text-sm">Sign Up</Link>
+                    <Link to="/auth/signup" className="flex-1 text-center py-2.5 rounded-xl bg-[#C0272D] text-white font-semibold text-sm">Sign Up</Link>
                   </div>
                 )}
               </div>

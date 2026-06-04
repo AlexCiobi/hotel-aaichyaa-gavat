@@ -23,10 +23,10 @@ const HERO_TAGLINES: Record<Language, string> = {
   kn: 'ಮಹಾರಾಷ್ಟ್ರದ ನಿಜವಾದ ರುಚಿ',
 }
 const HERO_SUBTITLES: Record<Language, string> = {
-  mr: 'थाली हाऊसमध्ये अस्सल महाराष्ट्रीयन थाळी अनुभवा',
-  hi: 'थाली हाउस में प्रामाणिक महाराष्ट्रीयन थाली का आनंद लें',
-  en: 'Experience authentic Maharashtrian Thali at Thali House, Ichalkaranji',
-  kn: 'ಥಾಲಿ ಹೌಸ್‌ನಲ್ಲಿ ಅಸಲಿ ಮಹಾರಾಷ್ಟ್ರೀಯನ್ ಥಾಲಿ ಅನುಭವಿಸಿ',
+  mr: 'हॉटेल आईच्या गावातमध्ये अस्सल महाराष्ट्रीयन थाळी अनुभवा',
+  hi: 'होटेल आईच्या गावात में प्रामाणिक महाराष्ट्रीयन थाली का आनंद लें',
+  en: 'Experience authentic Maharashtrian Thali at Hotel Aaichyaa Gavat, Ichalkaranji',
+  kn: 'ಹೋಟೆಲ್ ಆಈಚ್ಯಾ ಗಾವತ್‌ನಲ್ಲಿ ಅಸಲಿ ಮಹಾರಾಷ್ಟ್ರೀಯನ್ ಥಾಲಿ ಅನುಭವಿಸಿ',
 }
 
 const SIGNATURE_ITEMS = [
@@ -94,7 +94,7 @@ function StatCounter({ target, suffix }: { target: number; suffix: string }) {
 
   const count = useCounter(target, visible)
   return (
-    <div ref={ref} className="font-dmserif text-4xl text-saffron">
+    <div ref={ref} className="font-dmserif text-4xl text-[#C0272D]">
       {count}{suffix}
     </div>
   )
@@ -144,7 +144,7 @@ export default function Home() {
         >
           <img
             src={HERO_BG}
-            alt="Thali House Hero"
+            alt="Hotel Aaichyaa Gavat"
             className="w-full h-full object-cover"
             loading="eager"
           />
@@ -177,7 +177,7 @@ export default function Home() {
         {/* Floating particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
           {[...Array(18)].map((_, i) => {
-            const colors = ['#FF6B00', '#D4A017', '#8B1A1A', '#FDF6EC', '#FF8C38']
+            const colors = ['#C0272D', '#D4A017', '#8B1A1A', '#FDF6EC', '#D93A40']
             const size = Math.random() * 8 + 4
             const left = Math.random() * 100
             const delay = Math.random() * 8
@@ -210,7 +210,7 @@ export default function Home() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="inline-flex items-center gap-2 mb-6"
           >
-            <span className="relative overflow-hidden bg-saffron/20 border border-saffron/40 text-saffron/90 text-xs font-semibold px-4 py-1.5 rounded-full tracking-wide uppercase">
+            <span className="relative overflow-hidden bg-[#C0272D]/20 border border-[#C0272D]/40 text-[#C0272D]/90 text-xs font-semibold px-4 py-1.5 rounded-full tracking-wide uppercase">
               Established 2019 · Ichalkaranji, Maharashtra
               <span className="absolute inset-0 animate-shimmer-sweep" />
             </span>
@@ -262,7 +262,7 @@ export default function Home() {
             <motion.div whileTap={{ scale: 0.97 }}>
               <Link
                 to="/order"
-                className="inline-flex items-center gap-2 bg-saffron hover:bg-orange-600 text-white font-semibold px-8 py-3.5 rounded-full transition-all duration-200 shadow-lg shadow-saffron/30 text-base"
+                className="inline-flex items-center gap-2 bg-[#C0272D] hover:bg-[#9e1f25] text-white font-semibold px-8 py-3.5 rounded-full transition-all duration-200 shadow-lg shadow-[#C0272D]/30 text-base"
               >
                 {t('hero.orderNow')}
               </Link>
@@ -289,7 +289,7 @@ export default function Home() {
                 key={lang}
                 className={`text-xs px-2.5 py-0.5 rounded-full font-semibold transition-all duration-300 ${
                   lang === currentLang
-                    ? 'bg-saffron text-white scale-110'
+                    ? 'bg-[#C0272D] text-white scale-110'
                     : 'text-white/40 border border-white/20'
                 }`}
               >
@@ -312,13 +312,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-14">
-              <span className="text-saffron text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">
-                Thali House Favourites
+              <span className="text-[#C0272D] text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">
+                Hotel Aaichyaa Gavat Favourites
               </span>
               <h2 className="font-playfair font-bold text-3xl sm:text-4xl text-charcoal">
                 {t('sections.signatureDishes')}
               </h2>
-              <div className="w-16 h-1 bg-saffron mx-auto mt-4 rounded-full" />
+              <div className="w-16 h-1 bg-[#C0272D] mx-auto mt-4 rounded-full" />
             </div>
           </ScrollReveal>
 
@@ -366,13 +366,13 @@ export default function Home() {
                         {desc}
                       </p>
                       <div className="flex items-center justify-between">
-                        <span className="font-dmserif text-2xl text-saffron">
+                        <span className="font-dmserif text-2xl text-[#C0272D]">
                           ₹{item.price}
                         </span>
                         <motion.div whileTap={{ scale: 0.97 }}>
                           <Link
                             to="/order"
-                            className="bg-saffron/10 hover:bg-saffron text-saffron hover:text-white text-sm font-semibold px-4 py-2 rounded-full transition-all duration-200"
+                            className="bg-[#C0272D]/10 hover:bg-[#C0272D] text-[#C0272D] hover:text-white text-sm font-semibold px-4 py-2 rounded-full transition-all duration-200"
                           >
                             {t('hero.orderNow')}
                           </Link>
@@ -393,7 +393,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             {/* Text */}
             <ScrollReveal direction="left">
-              <span className="text-saffron text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">
+              <span className="text-[#C0272D] text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">
                 Since 2019
               </span>
               <h2 className="font-playfair font-bold text-3xl sm:text-4xl text-charcoal mb-6">
@@ -414,7 +414,7 @@ export default function Home() {
                   { target: 25, suffix: '+', label: t('general.items') },
                 ].map(({ target, suffix, label, divisor }, i) => (
                   <div key={i} className="text-center">
-                    <div className="font-dmserif text-3xl sm:text-4xl text-saffron">
+                    <div className="font-dmserif text-3xl sm:text-4xl text-[#C0272D]">
                       {divisor ? (
                         <StatCounter target={target} suffix={suffix} />
                       ) : (
@@ -438,7 +438,7 @@ export default function Home() {
                   className="w-full rounded-2xl shadow-2xl object-cover h-96 sm:h-[480px]"
                   loading="lazy"
                 />
-                <div className="absolute -bottom-5 -left-5 bg-saffron text-white rounded-2xl p-4 shadow-xl">
+                <div className="absolute -bottom-5 -left-5 bg-[#C0272D] text-white rounded-2xl p-4 shadow-xl">
                   <div className="font-dmserif text-2xl">4.0★</div>
                   <div className="text-xs font-semibold opacity-90">967+ Reviews</div>
                 </div>
@@ -453,13 +453,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-14">
-              <span className="text-saffron text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">
+              <span className="text-[#C0272D] text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">
                 Popular Picks
               </span>
               <h2 className="font-playfair font-bold text-3xl sm:text-4xl text-white">
                 {t('sections.exploreMenu')}
               </h2>
-              <div className="w-16 h-1 bg-saffron mx-auto mt-4 rounded-full" />
+              <div className="w-16 h-1 bg-[#C0272D] mx-auto mt-4 rounded-full" />
             </div>
           </ScrollReveal>
 
@@ -500,10 +500,10 @@ export default function Home() {
                       <h3 className="text-white font-semibold text-sm mb-1 line-clamp-1">{name}</h3>
                       <p className="text-white/50 text-xs mb-3 line-clamp-2">{desc}</p>
                       <div className="flex items-center justify-between">
-                        <span className="font-dmserif text-xl text-saffron">₹{item.price}</span>
+                        <span className="font-dmserif text-xl text-[#C0272D]">₹{item.price}</span>
                         <Link
                           to="/order"
-                          className="text-xs text-saffron hover:text-white transition-colors duration-200 font-semibold"
+                          className="text-xs text-[#C0272D] hover:text-white transition-colors duration-200 font-semibold"
                         >
                           Order →
                         </Link>
@@ -520,7 +520,7 @@ export default function Home() {
               <motion.div whileTap={{ scale: 0.97 }}>
                 <Link
                   to="/menu"
-                  className="inline-flex items-center gap-2 bg-saffron hover:bg-orange-600 text-white font-semibold px-8 py-3.5 rounded-full transition-all duration-200 shadow-lg shadow-saffron/30"
+                  className="inline-flex items-center gap-2 bg-[#C0272D] hover:bg-[#9e1f25] text-white font-semibold px-8 py-3.5 rounded-full transition-all duration-200 shadow-lg shadow-[#C0272D]/30"
                 >
                   {t('buttons.viewFullMenu')}
                 </Link>
@@ -543,11 +543,11 @@ export default function Home() {
             <motion.div
               whileHover={{ scale: 1.01 }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="relative bg-gradient-to-r from-saffron/20 to-gold/20 border border-saffron/30 rounded-3xl p-8 sm:p-12 text-center overflow-hidden"
-              style={{ boxShadow: '0 0 60px rgba(255,107,0,0.2)' }}
+              className="relative bg-gradient-to-r from-[#C0272D]/20 to-gold/20 border border-[#C0272D]/30 rounded-3xl p-8 sm:p-12 text-center overflow-hidden"
+              style={{ boxShadow: '0 0 60px rgba(192,39,45,0.2)' }}
             >
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
-                <span className="font-dmserif text-[200px] text-saffron leading-none">%</span>
+                <span className="font-dmserif text-[200px] text-[#C0272D] leading-none">%</span>
               </div>
               <span className="text-gold text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">
                 {t('sections.todaySpecial')}
@@ -560,7 +560,7 @@ export default function Home() {
                 <motion.div whileTap={{ scale: 0.97 }}>
                   <Link
                     to="/offers"
-                    className="inline-flex items-center gap-2 bg-saffron hover:bg-orange-600 text-white font-semibold px-7 py-3 rounded-full transition-all duration-200 shadow-lg"
+                    className="inline-flex items-center gap-2 bg-[#C0272D] hover:bg-[#9e1f25] text-white font-semibold px-7 py-3 rounded-full transition-all duration-200 shadow-lg"
                   >
                     View All Offers
                   </Link>
@@ -584,13 +584,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-14">
-              <span className="text-saffron text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">
+              <span className="text-[#C0272D] text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">
                 Testimonials
               </span>
               <h2 className="font-playfair font-bold text-3xl sm:text-4xl text-white">
                 {t('sections.whatGuestsSay')}
               </h2>
-              <div className="w-16 h-1 bg-saffron mx-auto mt-4 rounded-full" />
+              <div className="w-16 h-1 bg-[#C0272D] mx-auto mt-4 rounded-full" />
             </div>
           </ScrollReveal>
 
@@ -604,7 +604,7 @@ export default function Home() {
                 >
                   <Quote
                     size={40}
-                    className="absolute top-4 right-4 text-saffron/20"
+                    className="absolute top-4 right-4 text-[#C0272D]/20"
                   />
                   <div className="flex items-center gap-1 mb-3">
                     {[...Array(review.rating)].map((_, j) => (
@@ -619,8 +619,8 @@ export default function Home() {
                       <div className="text-white font-semibold text-sm">{review.name}</div>
                       <div className="text-white/40 text-xs">{review.date}</div>
                     </div>
-                    <div className="w-9 h-9 rounded-full bg-saffron/20 flex items-center justify-center">
-                      <span className="text-saffron font-bold text-sm">
+                    <div className="w-9 h-9 rounded-full bg-[#C0272D]/20 flex items-center justify-center">
+                      <span className="text-[#C0272D] font-bold text-sm">
                         {review.name[0]}
                       </span>
                     </div>
@@ -637,13 +637,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-14">
-              <span className="text-saffron text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">
+              <span className="text-[#C0272D] text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">
                 Where To Find Us
               </span>
               <h2 className="font-playfair font-bold text-3xl sm:text-4xl text-charcoal">
                 {t('sections.visitUs')}
               </h2>
-              <div className="w-16 h-1 bg-saffron mx-auto mt-4 rounded-full" />
+              <div className="w-16 h-1 bg-[#C0272D] mx-auto mt-4 rounded-full" />
             </div>
           </ScrollReveal>
 
@@ -652,7 +652,7 @@ export default function Home() {
             <ScrollReveal direction="left">
               <div className="map-container rounded-2xl overflow-hidden shadow-xl h-64 sm:h-80">
                 <iframe
-                  title="Thali House Location"
+                  title="Hotel Aaichyaa Gavat Location"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3824.234!2d74.4697!3d16.6887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc1001!2sThali+House!5e0!3m2!1sen!2sin!4v1!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
@@ -668,8 +668,8 @@ export default function Home() {
             <ScrollReveal direction="right">
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-saffron/10 flex items-center justify-center flex-shrink-0">
-                    <MapPin size={22} className="text-saffron" />
+                  <div className="w-12 h-12 rounded-xl bg-[#C0272D]/10 flex items-center justify-center flex-shrink-0">
+                    <MapPin size={22} className="text-[#C0272D]" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-charcoal mb-1">{t('contact.address')}</h4>
@@ -681,20 +681,20 @@ export default function Home() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-saffron/10 flex items-center justify-center flex-shrink-0">
-                    <Phone size={22} className="text-saffron" />
+                  <div className="w-12 h-12 rounded-xl bg-[#C0272D]/10 flex items-center justify-center flex-shrink-0">
+                    <Phone size={22} className="text-[#C0272D]" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-charcoal mb-1">{t('contact.phone')}</h4>
-                    <a href="tel:+918888377788" className="text-saffron font-semibold hover:underline">
+                    <a href="tel:+918888377788" className="text-[#C0272D] font-semibold hover:underline">
                       +91 88883 77788
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-saffron/10 flex items-center justify-center flex-shrink-0">
-                    <Clock size={22} className="text-saffron" />
+                  <div className="w-12 h-12 rounded-xl bg-[#C0272D]/10 flex items-center justify-center flex-shrink-0">
+                    <Clock size={22} className="text-[#C0272D]" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-charcoal mb-1">{t('contact.hours')}</h4>
@@ -710,7 +710,7 @@ export default function Home() {
                   <motion.div whileTap={{ scale: 0.97 }}>
                     <a
                       href="tel:+918888377788"
-                      className="flex items-center gap-2 bg-saffron hover:bg-orange-600 text-white font-semibold px-5 py-3 rounded-full transition-all duration-200 text-sm"
+                      className="flex items-center gap-2 bg-[#C0272D] hover:bg-[#9e1f25] text-white font-semibold px-5 py-3 rounded-full transition-all duration-200 text-sm"
                     >
                       <Phone size={16} />
                       {t('buttons.callNow')}
@@ -721,7 +721,7 @@ export default function Home() {
                       href="https://wa.me/918888377788"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 border-2 border-saffron text-saffron hover:bg-saffron hover:text-white font-semibold px-5 py-3 rounded-full transition-all duration-200 text-sm"
+                      className="flex items-center gap-2 border-2 border-[#C0272D] text-[#C0272D] hover:bg-[#C0272D] hover:text-white font-semibold px-5 py-3 rounded-full transition-all duration-200 text-sm"
                     >
                       {t('buttons.whatsapp')}
                     </a>

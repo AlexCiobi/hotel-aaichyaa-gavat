@@ -63,7 +63,7 @@ export default function CustomersAdmin() {
       <div className="relative mb-5 max-w-md">
         <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal/40" />
         <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search name, email, phone..."
-          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm focus:outline-none focus:border-saffron/50" />
+          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm focus:outline-none focus:border-[#C0272D]/50" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
@@ -84,7 +84,7 @@ export default function CustomersAdmin() {
                       className="hover:bg-gray-50 cursor-pointer">
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-saffron/10 flex items-center justify-center text-saffron font-bold text-sm flex-shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-[#C0272D]/10 flex items-center justify-center text-[#C0272D] font-bold text-sm flex-shrink-0">
                             {displayName(c)[0]?.toUpperCase()}
                           </div>
                           <div>
@@ -119,8 +119,8 @@ export default function CustomersAdmin() {
             </div>
 
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-14 h-14 rounded-full bg-saffron/10 flex items-center justify-center">
-                <span className="text-saffron font-playfair font-bold text-xl">{displayName(selected)[0]?.toUpperCase()}</span>
+              <div className="w-14 h-14 rounded-full bg-[#C0272D]/10 flex items-center justify-center">
+                <span className="text-[#C0272D] font-playfair font-bold text-xl">{displayName(selected)[0]?.toUpperCase()}</span>
               </div>
               <div>
                 <div className="font-playfair font-bold text-charcoal">{displayName(selected)}</div>
@@ -147,7 +147,7 @@ export default function CustomersAdmin() {
                 <input type="number" value={editPoints} onChange={e => setEditPoints(e.target.value)}
                   className="flex-1 px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none" />
                 <button onClick={savePoints} disabled={saving}
-                  className="px-3 py-2 bg-saffron text-white text-sm font-semibold rounded-xl disabled:opacity-60">
+                  className="px-3 py-2 bg-[#C0272D] text-white text-sm font-semibold rounded-xl disabled:opacity-60">
                   {saving ? '...' : 'Save'}
                 </button>
               </div>

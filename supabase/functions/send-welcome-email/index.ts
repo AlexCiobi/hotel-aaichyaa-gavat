@@ -41,9 +41,9 @@ function buildEmailHtml(p: WelcomeEmailPayload): string {
 
         <!-- Header -->
         <tr>
-          <td style="background:linear-gradient(135deg,#FF6B00 0%,#e05500 100%);padding:40px 32px;text-align:center">
+          <td style="background:linear-gradient(135deg,#C0272D 0%,#9e1f25 100%);padding:40px 32px;text-align:center">
             <div style="display:inline-block;width:56px;height:56px;background:rgba(255,255,255,0.2);border-radius:50%;line-height:56px;font-size:26px;margin-bottom:14px">🍛</div>
-            <h1 style="margin:0;color:#fff;font-size:28px;font-family:Georgia,serif;font-weight:bold">Thali House</h1>
+            <h1 style="margin:0;color:#fff;font-size:28px;font-family:Georgia,serif;font-weight:bold">Hotel Aaichyaa Gavat</h1>
             <p style="margin:6px 0 0;color:rgba(255,255,255,0.85);font-size:13px">Ichalkaranji, Maharashtra</p>
           </td>
         </tr>
@@ -57,7 +57,7 @@ function buildEmailHtml(p: WelcomeEmailPayload): string {
               Welcome, ${firstName}! 🎉
             </h2>
             <p style="margin:0 0 28px;color:#666;font-size:15px;line-height:1.6">
-              Your Thali House account is ready. We're delighted to have you with us —
+              Your Hotel Aaichyaa Gavat account is ready. We're delighted to have you with us —
               authentic Kolhapuri flavours, just a few taps away.
             </p>
 
@@ -102,7 +102,7 @@ function buildEmailHtml(p: WelcomeEmailPayload): string {
             <!-- CTA -->
             <div style="text-align:center;margin-bottom:8px">
               <a href="https://thalihouse.in/menu"
-                style="display:inline-block;background:#FF6B00;color:#fff;font-size:15px;font-weight:700;padding:14px 36px;border-radius:50px;text-decoration:none;letter-spacing:0.3px">
+                style="display:inline-block;background:#C0272D;color:#fff;font-size:15px;font-weight:700;padding:14px 36px;border-radius:50px;text-decoration:none;letter-spacing:0.3px">
                 Explore the Menu
               </a>
             </div>
@@ -119,7 +119,7 @@ function buildEmailHtml(p: WelcomeEmailPayload): string {
         <!-- Footer -->
         <tr>
           <td style="background:#1A1A1A;padding:24px;text-align:center">
-            <p style="margin:0 0 6px;color:#fff;font-size:13px;font-family:Georgia,serif">Thali House</p>
+            <p style="margin:0 0 6px;color:#fff;font-size:13px;font-family:Georgia,serif">Hotel Aaichyaa Gavat</p>
             <p style="margin:0 0 6px;color:#999;font-size:12px">Bavaskar Building, RB Road, Kagwade Mala, Ichalkaranji 416115</p>
             <p style="margin:0;color:#999;font-size:12px">+91 88883 77788</p>
           </td>
@@ -169,9 +169,9 @@ serve(async (req: Request) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: `Thali House <${FROM_EMAIL}>`,
+        from: `Hotel Aaichyaa Gavat <${FROM_EMAIL}>`,
         to: [payload.customer_email],
-        subject: `Welcome to Thali House, ${payload.customer_name.split(" ")[0]}! 🍛`,
+        subject: `Welcome to Hotel Aaichyaa Gavat, ${payload.customer_name.split(" ")[0]}! 🍛`,
         html,
       }),
     });

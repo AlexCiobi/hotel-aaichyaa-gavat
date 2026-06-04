@@ -34,7 +34,7 @@ const OFFERS: OfferData[] = [
       kn: 'ಯಾವುದೇ ಥಾಲಿ ಆರ್ಡರ್‌ನಲ್ಲಿ 20% ರಿಯಾಯಿತಿ. ಕೇವಲ ಡೈನ್-ಇನ್‌ಗೆ.',
     },
     badge: 'HOT DEAL',
-    gradient: 'from-saffron to-orange-600',
+    gradient: 'from-[#C0272D] to-[#8B1A1A]',
     validUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     icon: '🔥',
     applicable: 'All Thalis · Dine-In Only',
@@ -171,7 +171,7 @@ export default function Offers() {
                 left: `${Math.random() * 100}%`,
                 bottom: '0',
                 borderRadius: '50%',
-                background: ['#FF6B00', '#D4A017', '#8B1A1A'][i % 3],
+                background: ['#C0272D', '#D4A017', '#8B1A1A'][i % 3],
                 animation: `floatUp2 ${Math.random() * 8 + 6}s linear ${Math.random() * 8}s infinite`,
               }}
             />
@@ -182,9 +182,9 @@ export default function Offers() {
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-saffron text-xs font-semibold uppercase tracking-[0.2em] block mb-3"
+            className="text-[#C0272D] text-xs font-semibold uppercase tracking-[0.2em] block mb-3"
           >
-            Thali House
+            Hotel Aaichyaa Gavat
           </motion.span>
           <motion.h1
             initial={false}
@@ -259,7 +259,7 @@ export default function Offers() {
                       </Link>
                       <motion.a
                         whileTap={{ scale: 0.97 }}
-                        href={`https://wa.me/?text=Check out this amazing offer at Thali House! ${title} — ${offer.applicable}`}
+                        href={`https://wa.me/?text=Check out this amazing offer at Hotel Aaichyaa Gavat! ${title} — ${offer.applicable}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-1.5 bg-[#25D366]/80 hover:bg-[#25D366] text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-all duration-200"
@@ -322,7 +322,7 @@ export default function Offers() {
             </div>
             <motion.a
               whileTap={{ scale: 0.97 }}
-              href="https://wa.me/918888377788?text=Hi! I want to receive daily offers from Thali House."
+              href="https://wa.me/918888377788?text=Hi! I want to receive daily offers from Hotel Aaichyaa Gavat."
               target="_blank"
               rel="noopener noreferrer"
               className="flex-shrink-0 flex items-center gap-2 bg-[#25D366] hover:bg-green-500 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 shadow-lg"

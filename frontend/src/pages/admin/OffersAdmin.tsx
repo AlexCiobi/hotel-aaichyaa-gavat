@@ -23,7 +23,7 @@ interface Offer {
 const EMPTY: Omit<Offer, 'id'> = {
   title_en: '', title_mr: '', title_hi: '', title_kn: '',
   description_en: '', description_mr: '', description_hi: '', description_kn: '',
-  discount_percent: 10, valid_until: '', is_active: true, image_url: '', badge_color: '#FF6B00',
+  discount_percent: 10, valid_until: '', is_active: true, image_url: '', badge_color: '#C0272D',
 }
 
 export default function OffersAdmin() {
@@ -106,7 +106,7 @@ export default function OffersAdmin() {
         </div>
         <div>
           <label className="block text-xs font-semibold text-charcoal/60 mb-1">Badge Color</label>
-          <input type="color" value={data.badge_color ?? '#FF6B00'} onChange={e => setData({ ...data, badge_color: e.target.value })}
+          <input type="color" value={data.badge_color ?? '#C0272D'} onChange={e => setData({ ...data, badge_color: e.target.value })}
             className="w-full h-10 rounded-xl border border-gray-200 cursor-pointer" />
         </div>
       </div>
@@ -116,11 +116,11 @@ export default function OffersAdmin() {
           className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none" />
       </div>
       <label className="flex items-center gap-2 text-sm cursor-pointer">
-        <input type="checkbox" checked={data.is_active ?? true} onChange={e => setData({ ...data, is_active: e.target.checked })} className="accent-saffron" />
+        <input type="checkbox" checked={data.is_active ?? true} onChange={e => setData({ ...data, is_active: e.target.checked })} className="accent-[#C0272D]" />
         Active
       </label>
       <div className="flex gap-2 pt-2">
-        <button onClick={onSave} disabled={saving} className="px-4 py-2 bg-saffron text-white text-sm font-semibold rounded-xl disabled:opacity-60">
+        <button onClick={onSave} disabled={saving} className="px-4 py-2 bg-[#C0272D] text-white text-sm font-semibold rounded-xl disabled:opacity-60">
           {saving ? 'Saving...' : 'Save'}
         </button>
         <button onClick={onCancel} className="px-4 py-2 border border-gray-200 text-charcoal/60 text-sm rounded-xl">Cancel</button>
@@ -135,13 +135,13 @@ export default function OffersAdmin() {
           <h1 className="font-playfair font-bold text-2xl text-charcoal">Offers</h1>
           <p className="text-charcoal/50 text-sm">{offers.length} offers</p>
         </div>
-        <button onClick={() => setShowAdd(v => !v)} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-saffron text-white text-sm font-semibold shadow-md shadow-saffron/20">
+        <button onClick={() => setShowAdd(v => !v)} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#C0272D] text-white text-sm font-semibold shadow-md shadow-[#C0272D]/20">
           <Plus size={15} /> New Offer
         </button>
       </div>
 
       {showAdd && (
-        <div className="bg-white rounded-2xl p-5 border border-saffron/20 shadow-sm mb-5">
+        <div className="bg-white rounded-2xl p-5 border border-[#C0272D]/20 shadow-sm mb-5">
           <h3 className="font-semibold text-charcoal mb-4">New Offer</h3>
           <OfferForm data={form as Partial<Offer>} setData={v => setForm(v as Omit<Offer, 'id'>)} onSave={saveNew} onCancel={() => setShowAdd(false)} />
         </div>

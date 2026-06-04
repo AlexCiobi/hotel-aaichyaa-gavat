@@ -98,7 +98,7 @@ export default function Dashboard() {
   const statusColor: Record<string, string> = {
     available: 'bg-green-100 text-green-700',
     occupied: 'bg-red-100 text-red-600',
-    reserved: 'bg-saffron/10 text-saffron',
+    reserved: 'bg-[#C0272D]/10 text-[#C0272D]',
     maintenance: 'bg-gray-100 text-gray-500',
   }
 
@@ -111,7 +111,7 @@ export default function Dashboard() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <StatCard icon={ShoppingBag} label="Today's Orders" value={stats.todayOrders} color="bg-saffron" />
+        <StatCard icon={ShoppingBag} label="Today's Orders" value={stats.todayOrders} color="bg-[#C0272D]" />
         <StatCard icon={TrendingUp} label="Today's Revenue" value={`₹${stats.todayRevenue}`} color="bg-green-500" />
         <StatCard icon={Calendar} label="Active Reservations" value={stats.activeReservations} sub="today" color="bg-maroon" />
         <StatCard icon={Users} label="Total Customers" value={stats.totalCustomers} color="bg-purple-500" />
@@ -127,7 +127,7 @@ export default function Dashboard() {
               <XAxis dataKey="day" tick={{ fontSize: 12 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip formatter={(v) => [`₹${v}`, 'Revenue']} />
-              <Bar dataKey="revenue" fill="#FF6B00" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="revenue" fill="#C0272D" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -170,13 +170,13 @@ export default function Dashboard() {
                 <tr><td colSpan={5} className="px-4 py-8 text-center text-charcoal/30 text-sm">No orders today</td></tr>
               ) : recentOrders.map(o => (
                 <tr key={o.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-4 py-3 font-semibold text-saffron">{o.order_number}</td>
+                  <td className="px-4 py-3 font-semibold text-[#C0272D]">{o.order_number}</td>
                   <td className="px-4 py-3 text-charcoal">{o.customer_name}</td>
                   <td className="px-4 py-3">
                     <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
                       o.order_status === 'delivered' ? 'bg-green-100 text-green-700' :
                       o.order_status === 'cancelled' ? 'bg-red-100 text-red-500' :
-                      'bg-saffron/10 text-saffron'}`}>
+                      'bg-[#C0272D]/10 text-[#C0272D]'}`}>
                       {o.order_status}
                     </span>
                   </td>

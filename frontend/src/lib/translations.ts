@@ -19,7 +19,7 @@ export const translations: Translations = {
 
     // Hero
     'hero.tagline': 'महाराष्ट्राची खरी चव',
-    'hero.subtitle': 'थाली हाऊसमध्ये अस्सल महाराष्ट्रीयन थाळी अनुभवा',
+    'hero.subtitle': 'हॉटेल आईच्या गावातमध्ये अस्सल महाराष्ट्रीयन थाळी अनुभवा',
     'hero.orderNow': 'आत्ता ऑर्डर करा',
     'hero.reserveTable': 'टेबल बुक करा',
 
@@ -89,7 +89,7 @@ export const translations: Translations = {
     'footer.contact': 'संपर्क',
 
     // Story
-    'story.text': 'थाली हाऊस हे २०१९ साली इचलकरंजीत सुरू झाले. आमचे उद्दिष्ट आहे महाराष्ट्राची खरी चव सर्वांपर्यंत पोहोचवणे. आमच्या अलानी मटण, चिकन फ्राय आणि विशेष थाळ्या यांसाठी आम्ही प्रसिद्ध आहोत.',
+    'story.text': 'हॉटेल आईच्या गावात हे २०१९ साली इचलकरंजीत सुरू झाले. आमचे उद्दिष्ट आहे महाराष्ट्राची खरी चव सर्वांपर्यंत पोहोचवणे. आमच्या अलानी मटण, चिकन फ्राय आणि विशेष थाळ्या यांसाठी आम्ही प्रसिद्ध आहोत.',
 
     // General
     'general.established': 'स्थापित २०१९',
@@ -115,7 +115,7 @@ export const translations: Translations = {
 
     // Hero
     'hero.tagline': 'महाराष्ट्र का असली स्वाद',
-    'hero.subtitle': 'थाली हाउस में प्रामाणिक महाराष्ट्रीयन थाली का आनंद लें',
+    'hero.subtitle': 'होटेल आईच्या गावात में प्रामाणिक महाराष्ट्रीयन थाली का आनंद लें',
     'hero.orderNow': 'अभी ऑर्डर करें',
     'hero.reserveTable': 'टेबल बुक करें',
 
@@ -185,7 +185,7 @@ export const translations: Translations = {
     'footer.contact': 'संपर्क',
 
     // Story
-    'story.text': 'थाली हाउस की स्थापना २०१९ में इचलकरंजी में हुई थी। हमारा उद्देश्य है महाराष्ट्र के प्रामाणिक स्वाद को सभी तक पहुंचाना। हम अलानी मटन, चिकन फ्राय और विशेष थाली के लिए प्रसिद्ध हैं।',
+    'story.text': 'होटेल आईच्या गावात की स्थापना २०१९ में इचलकरंजी में हुई थी। हमारा उद्देश्य है महाराष्ट्र के प्रामाणिक स्वाद को सभी तक पहुंचाना। हम अलानी मटन, चिकन फ्राय और विशेष थाली के लिए प्रसिद्ध हैं।',
 
     // General
     'general.established': 'स्थापित २०१९',
@@ -211,7 +211,7 @@ export const translations: Translations = {
 
     // Hero
     'hero.tagline': 'The Real Taste of Maharashtra',
-    'hero.subtitle': 'Experience authentic Maharashtrian Thali at Thali House, Ichalkaranji',
+    'hero.subtitle': 'Experience authentic Maharashtrian Thali at Hotel Aaichyaa Gavat, Ichalkaranji',
     'hero.orderNow': 'Order Now',
     'hero.reserveTable': 'Reserve a Table',
 
@@ -281,7 +281,7 @@ export const translations: Translations = {
     'footer.contact': 'Contact',
 
     // Story
-    'story.text': 'Thali House was founded in 2019 in Ichalkaranji with a simple mission: bring the authentic taste of Maharashtra to everyone. We are known for our Alani Mutton, Chicken Fry, and the legendary Special Thali that keeps our guests coming back.',
+    'story.text': 'Hotel Aaichyaa Gavat was founded in 2019 in Ichalkaranji with a simple mission: bring the authentic taste of Maharashtra to everyone. We are known for our Alani Mutton, Chicken Fry, and the legendary Special Thali that keeps our guests coming back.',
 
     // General
     'general.established': 'Est. 2019',
@@ -307,7 +307,7 @@ export const translations: Translations = {
 
     // Hero
     'hero.tagline': 'ಮಹಾರಾಷ್ಟ್ರದ ನಿಜವಾದ ರುಚಿ',
-    'hero.subtitle': 'ಥಾಲಿ ಹೌಸ್‌ನಲ್ಲಿ ಅಸಲಿ ಮಹಾರಾಷ್ಟ್ರೀಯನ್ ಥಾಲಿ ಅನುಭವಿಸಿ',
+    'hero.subtitle': 'ಹೋಟೆಲ್ ಆಈಚ್ಯಾ ಗಾವತ್‌ನಲ್ಲಿ ಅಸಲಿ ಮಹಾರಾಷ್ಟ್ರೀಯನ್ ಥಾಲಿ ಅನುಭವಿಸಿ',
     'hero.orderNow': 'ಈಗ ಆರ್ಡರ್ ಮಾಡಿ',
     'hero.reserveTable': 'ಟೇಬಲ್ ಬುಕ್ ಮಾಡಿ',
 
@@ -377,7 +377,7 @@ export const translations: Translations = {
     'footer.contact': 'ಸಂಪರ್ಕ',
 
     // Story
-    'story.text': 'ಥಾಲಿ ಹೌಸ್ ೨೦೧೯ ರಲ್ಲಿ ಇಚಲಕರಂಜಿಯಲ್ಲಿ ಸ್ಥಾಪಿಸಲಾಯಿತು. ನಮ್ಮ ಉದ್ದೇಶ ಮಹಾರಾಷ್ಟ್ರದ ಅಸಲಿ ರುಚಿಯನ್ನು ಎಲ್ಲರಿಗೂ ತಲುಪಿಸುವುದು. ನಮ್ಮ ಅಲಾನಿ ಮಟನ್, ಚಿಕನ್ ಫ್ರೈ ಮತ್ತು ವಿಶೇಷ ಥಾಲಿ ಗಳಿಗೆ ನಾವು ಪ್ರಸಿದ್ಧರಾಗಿದ್ದೇವೆ.',
+    'story.text': 'ಹೋಟೆಲ್ ಆಈಚ್ಯಾ ಗಾವತ್ ೨೦೧೯ ರಲ್ಲಿ ಇಚಲಕರಂಜಿಯಲ್ಲಿ ಸ್ಥಾಪಿಸಲಾಯಿತು. ನಮ್ಮ ಉದ್ದೇಶ ಮಹಾರಾಷ್ಟ್ರದ ಅಸಲಿ ರುಚಿಯನ್ನು ಎಲ್ಲರಿಗೂ ತಲುಪಿಸುವುದು. ನಮ್ಮ ಅಲಾನಿ ಮಟನ್, ಚಿಕನ್ ಫ್ರೈ ಮತ್ತು ವಿಶೇಷ ಥಾಲಿ ಗಳಿಗೆ ನಾವು ಪ್ರಸಿದ್ಧರಾಗಿದ್ದೇವೆ.',
 
     // General
     'general.established': 'ಸ್ಥಾ. ೨೦೧೯',

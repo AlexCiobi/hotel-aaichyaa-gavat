@@ -26,8 +26,8 @@ class ErrorBoundary extends React.Component<
           textAlign: 'center'
         }}>
           <div style={{ fontSize: '48px' }}>🍛</div>
-          <h1 style={{ color: '#FF6B00', fontFamily: 'Georgia, serif', fontSize: '28px' }}>
-            Thali House
+          <h1 style={{ color: '#C0272D', fontFamily: 'Georgia, serif', fontSize: '28px' }}>
+            Hotel Aaichyaa Gavat
           </h1>
           <p style={{ color: '#8B1A1A', fontWeight: 600 }}>Something went wrong loading the page</p>
           <pre style={{
@@ -42,7 +42,7 @@ class ErrorBoundary extends React.Component<
           <button
             onClick={() => window.location.reload()}
             style={{
-              background: '#FF6B00', color: 'white', border: 'none',
+              background: '#C0272D', color: 'white', border: 'none',
               padding: '12px 28px', borderRadius: '6px', fontSize: '15px',
               fontWeight: 600, cursor: 'pointer'
             }}

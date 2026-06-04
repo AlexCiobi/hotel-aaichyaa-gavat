@@ -7,7 +7,7 @@ export default function SettingsAdmin() {
   const { adminSession } = useAdmin()
 
   const [restaurantInfo, setRestaurantInfo] = useState({
-    name: 'Thali House', address: 'Bavaskar Building, RB Road, Kagwade Mala, Ichalkaranji, Maharashtra 416115',
+    name: 'Hotel Aaichyaa Gavat', address: 'Bavaskar Building, RB Road, Kagwade Mala, Ichalkaranji, Maharashtra 416115',
     phone: '+91 88883 77788', hours: '11:00 AM – 11:00 PM, Every Day', whatsapp: '+918888377788',
   })
   const [razorpay, setRazorpay] = useState({ key_id: '', key_secret: '' })
@@ -43,7 +43,7 @@ export default function SettingsAdmin() {
     <div>
       <label className="block text-xs font-semibold text-charcoal/60 mb-1.5">{label}</label>
       <input type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder}
-        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-saffron/50" />
+        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#C0272D]/50" />
     </div>
   )
 
@@ -62,7 +62,7 @@ export default function SettingsAdmin() {
           <Field label="Opening Hours" value={restaurantInfo.hours} onChange={v => setRestaurantInfo(p => ({ ...p, hours: v }))} />
           <Field label="WhatsApp Notification Number" value={restaurantInfo.whatsapp} onChange={v => setRestaurantInfo(p => ({ ...p, whatsapp: v }))} placeholder="+918888377788" />
         </div>
-        <button onClick={saveRestaurantInfo} className="flex items-center gap-2 mt-4 px-4 py-2.5 bg-saffron text-white rounded-xl text-sm font-semibold shadow-md shadow-saffron/20">
+        <button onClick={saveRestaurantInfo} className="flex items-center gap-2 mt-4 px-4 py-2.5 bg-[#C0272D] text-white rounded-xl text-sm font-semibold shadow-md shadow-[#C0272D]/20">
           <Save size={15} /> Save Info
         </button>
       </Section>
@@ -79,7 +79,7 @@ export default function SettingsAdmin() {
               <input type={showRazorpaySecret ? 'text' : 'password'} value={razorpay.key_secret}
                 onChange={e => setRazorpay(p => ({ ...p, key_secret: e.target.value }))}
                 placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxx"
-                className="w-full px-4 py-2.5 pr-10 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-saffron/50" />
+                className="w-full px-4 py-2.5 pr-10 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#C0272D]/50" />
               <button type="button" onClick={() => setShowRazorpaySecret(v => !v)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-charcoal/40 hover:text-charcoal">
                 {showRazorpaySecret ? <EyeOff size={15} /> : <Eye size={15} />}
@@ -87,7 +87,7 @@ export default function SettingsAdmin() {
             </div>
           </div>
         </div>
-        <button onClick={saveRazorpay} className="flex items-center gap-2 mt-4 px-4 py-2.5 bg-saffron text-white rounded-xl text-sm font-semibold shadow-md shadow-saffron/20">
+        <button onClick={saveRazorpay} className="flex items-center gap-2 mt-4 px-4 py-2.5 bg-[#C0272D] text-white rounded-xl text-sm font-semibold shadow-md shadow-[#C0272D]/20">
           <Save size={15} /> Save Keys
         </button>
       </Section>
@@ -104,12 +104,12 @@ export default function SettingsAdmin() {
               <div className="relative">
                 <input type={showPwd ? 'text' : 'password'} value={passwords[key]}
                   onChange={e => setPasswords(p => ({ ...p, [key]: e.target.value }))}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-saffron/50" />
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#C0272D]/50" />
               </div>
             </div>
           ))}
           <label className="flex items-center gap-2 text-sm cursor-pointer text-charcoal/60 mt-1">
-            <input type="checkbox" checked={showPwd} onChange={e => setShowPwd(e.target.checked)} className="accent-saffron" />
+            <input type="checkbox" checked={showPwd} onChange={e => setShowPwd(e.target.checked)} className="accent-[#C0272D]" />
             Show passwords
           </label>
         </div>

@@ -41,11 +41,9 @@ export default function Login() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex flex-col items-center gap-2">
-            <div className="w-14 h-14 rounded-full bg-saffron flex items-center justify-center shadow-lg shadow-saffron/30">
-              <span className="text-white font-playfair font-bold text-xl">TH</span>
-            </div>
+            <img src="/logo.png" alt="Hotel Aaichyaa Gavat" className="w-14 h-14 rounded-full object-cover shadow-lg" />
             <span className="font-playfair font-bold text-2xl text-charcoal">
-              Thali <span className="text-saffron">House</span>
+              Hotel <span className="text-[#C0272D]">Aaichyaa Gavat</span>
             </span>
           </Link>
           <p className="text-charcoal/50 text-sm mt-2">Welcome back! Sign in to your account</p>
@@ -65,7 +63,7 @@ export default function Login() {
                   onChange={e => setEmail(e.target.value)}
                   placeholder="you@example.com"
                   required
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-charcoal/20 focus:border-saffron/60 focus:outline-none text-sm bg-offwhite transition-colors"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-charcoal/20 focus:border-[#C0272D]/60 focus:outline-none text-sm bg-offwhite transition-colors"
                 />
               </div>
             </div>
@@ -80,7 +78,7 @@ export default function Login() {
                   onChange={e => setPassword(e.target.value)}
                   placeholder="Your password"
                   required
-                  className="w-full pl-10 pr-10 py-3 rounded-xl border border-charcoal/20 focus:border-saffron/60 focus:outline-none text-sm bg-offwhite transition-colors"
+                  className="w-full pl-10 pr-10 py-3 rounded-xl border border-charcoal/20 focus:border-[#C0272D]/60 focus:outline-none text-sm bg-offwhite transition-colors"
                 />
                 <button type="button" onClick={() => setShowPassword(v => !v)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-charcoal/40 hover:text-charcoal transition-colors">
@@ -90,7 +88,7 @@ export default function Login() {
             </div>
 
             <motion.button whileTap={{ scale: 0.97 }} type="submit" disabled={loading}
-              className="w-full bg-saffron hover:bg-orange-600 disabled:bg-saffron/60 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-saffron/25 transition-all duration-200 mt-2">
+              className="w-full bg-[#C0272D] hover:bg-[#9e1f25] disabled:bg-[#C0272D]/60 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-[#C0272D]/25 transition-all duration-200 mt-2">
               {loading ? 'Signing in...' : 'Sign In'}
             </motion.button>
           </form>
@@ -102,14 +100,14 @@ export default function Login() {
 
           <motion.div whileTap={{ scale: 0.97 }}>
             <Link to="/order"
-              className="block w-full text-center border-2 border-charcoal/15 hover:border-saffron/40 text-charcoal/60 hover:text-saffron font-semibold py-3 rounded-xl transition-all duration-200 text-sm">
+              className="block w-full text-center border-2 border-charcoal/15 hover:border-[#C0272D]/40 text-charcoal/60 hover:text-[#C0272D] font-semibold py-3 rounded-xl transition-all duration-200 text-sm">
               Continue as Guest
             </Link>
           </motion.div>
 
           <p className="text-center text-sm text-charcoal/50 mt-6">
             Don't have an account?{' '}
-            <Link to="/auth/signup" className="text-saffron font-semibold hover:underline">Sign Up</Link>
+            <Link to="/auth/signup" className="text-[#C0272D] font-semibold hover:underline">Sign Up</Link>
           </p>
         </div>
       </div>

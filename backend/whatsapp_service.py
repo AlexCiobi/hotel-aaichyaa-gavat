@@ -1,5 +1,5 @@
 """
-WhatsApp Cloud API service for Thali House.
+WhatsApp Cloud API service for Hotel Aaichyaa Gavat.
 Uses Meta WhatsApp Business Platform (free tier supports 1000 conversations/month).
 
 Setup:

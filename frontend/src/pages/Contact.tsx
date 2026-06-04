@@ -63,8 +63,8 @@ export default function Contact() {
             transition={{ type: 'spring', stiffness: 200, damping: 18 }}
             className="flex items-center justify-center mb-3"
           >
-            <div className="w-12 h-12 bg-saffron/20 rounded-full flex items-center justify-center">
-              <MapPin size={24} className="text-saffron" />
+            <div className="w-12 h-12 bg-[#C0272D]/20 rounded-full flex items-center justify-center">
+              <MapPin size={24} className="text-[#C0272D]" />
             </div>
           </motion.div>
           <motion.h1
@@ -91,7 +91,7 @@ export default function Contact() {
                 style={{ height: 400 }}
               >
                 <iframe
-                  title="Thali House Map"
+                  title="Hotel Aaichyaa Gavat Map"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3824.234!2d74.4697!3d16.6887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc1001!2sThali+House!5e0!3m2!1sen!2sin!4v1!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
@@ -106,8 +106,8 @@ export default function Contact() {
             {/* Address with copy */}
             <ScrollReveal direction="left" delay={0.1}>
               <div className="bg-white rounded-2xl p-5 shadow-sm flex items-start gap-4">
-                <div className="w-11 h-11 bg-saffron/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <MapPin size={20} className="text-saffron" />
+                <div className="w-11 h-11 bg-[#C0272D]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <MapPin size={20} className="text-[#C0272D]" />
                 </div>
                 <div className="flex-1">
                   <h4 className="font-semibold text-charcoal text-sm mb-1">{t('contact.address')}</h4>
@@ -115,7 +115,7 @@ export default function Contact() {
                   <motion.button
                     whileTap={{ scale: 0.97 }}
                     onClick={handleCopy}
-                    className="flex items-center gap-1.5 mt-2 text-xs font-semibold text-saffron hover:text-orange-600 transition-colors duration-200"
+                    className="flex items-center gap-1.5 mt-2 text-xs font-semibold text-[#C0272D] hover:text-[#9e1f25] transition-colors duration-200"
                   >
                     <AnimatePresence mode="wait">
                       {copied ? (
@@ -156,9 +156,9 @@ export default function Contact() {
                 href="tel:+918888377788"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                animate={{ boxShadow: ['0 0 0px rgba(255,107,0,0)', '0 0 24px rgba(255,107,0,0.35)', '0 0 0px rgba(255,107,0,0)'] }}
+                animate={{ boxShadow: ['0 0 0px rgba(192,39,45,0)', '0 0 24px rgba(192,39,45,0.35)', '0 0 0px rgba(192,39,45,0)'] }}
                 transition={{ duration: 2, repeat: Infinity }}
-                className="flex items-center gap-4 bg-saffron hover:bg-orange-600 text-white p-5 rounded-2xl shadow-lg shadow-saffron/30 transition-colors duration-200 group"
+                className="flex items-center gap-4 bg-[#C0272D] hover:bg-[#9e1f25] text-white p-5 rounded-2xl shadow-lg shadow-[#C0272D]/30 transition-colors duration-200 group"
               >
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
                   <Phone size={24} />
@@ -194,8 +194,8 @@ export default function Contact() {
             <ScrollReveal direction="right" delay={0.14}>
               <div className="bg-white rounded-2xl p-5 shadow-sm">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-11 h-11 bg-saffron/10 rounded-xl flex items-center justify-center">
-                    <Clock size={20} className="text-saffron" />
+                  <div className="w-11 h-11 bg-[#C0272D]/10 rounded-xl flex items-center justify-center">
+                    <Clock size={20} className="text-[#C0272D]" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-charcoal text-sm">{t('contact.hours')}</h4>
@@ -272,14 +272,14 @@ export default function Contact() {
                         onChange={(e) => setFormName(e.target.value)}
                         placeholder="Your name"
                         required
-                        className="w-full px-4 py-2.5 rounded-xl border border-transparent focus:border-saffron/50 bg-offwhite text-sm focus:outline-none transition-colors duration-200"
+                        className="w-full px-4 py-2.5 rounded-xl border border-transparent focus:border-[#C0272D]/50 bg-offwhite text-sm focus:outline-none transition-colors duration-200"
                       />
                       <input
                         type="tel"
                         value={formPhone}
                         onChange={(e) => setFormPhone(e.target.value)}
                         placeholder="Phone number"
-                        className="w-full px-4 py-2.5 rounded-xl border border-transparent focus:border-saffron/50 bg-offwhite text-sm focus:outline-none transition-colors duration-200"
+                        className="w-full px-4 py-2.5 rounded-xl border border-transparent focus:border-[#C0272D]/50 bg-offwhite text-sm focus:outline-none transition-colors duration-200"
                       />
                       <textarea
                         value={formMessage}
@@ -287,12 +287,12 @@ export default function Contact() {
                         placeholder="Your message..."
                         required
                         rows={3}
-                        className="w-full px-4 py-2.5 rounded-xl border border-transparent focus:border-saffron/50 bg-offwhite text-sm focus:outline-none transition-colors duration-200 resize-none"
+                        className="w-full px-4 py-2.5 rounded-xl border border-transparent focus:border-[#C0272D]/50 bg-offwhite text-sm focus:outline-none transition-colors duration-200 resize-none"
                       />
                       <motion.button
                         whileTap={{ scale: 0.97 }}
                         type="submit"
-                        className="w-full bg-saffron hover:bg-orange-600 text-white font-semibold py-2.5 rounded-xl transition-all duration-200 text-sm"
+                        className="w-full bg-[#C0272D] hover:bg-[#9e1f25] text-white font-semibold py-2.5 rounded-xl transition-all duration-200 text-sm"
                       >
                         Send Message
                       </motion.button>

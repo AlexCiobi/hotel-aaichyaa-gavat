@@ -94,7 +94,7 @@ export default function ReservationsAdmin() {
         </div>
         <div className="flex gap-2">
           <button onClick={fetchReservations} className="p-2 rounded-xl bg-white border border-gray-200 text-charcoal/50 hover:text-charcoal"><RefreshCw size={16} /></button>
-          <button onClick={() => setShowAdd(v => !v)} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-saffron text-white text-sm font-semibold shadow-md shadow-saffron/20">
+          <button onClick={() => setShowAdd(v => !v)} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#C0272D] text-white text-sm font-semibold shadow-md shadow-[#C0272D]/20">
             <Plus size={15} /> Add Reservation
           </button>
         </div>
@@ -102,7 +102,7 @@ export default function ReservationsAdmin() {
 
       {/* Add Form */}
       {showAdd && (
-        <div className="bg-white rounded-2xl p-5 border border-saffron/20 shadow-sm mb-5">
+        <div className="bg-white rounded-2xl p-5 border border-[#C0272D]/20 shadow-sm mb-5">
           <h3 className="font-semibold text-charcoal mb-4">New Reservation</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[
@@ -116,12 +116,12 @@ export default function ReservationsAdmin() {
                 <label className="block text-xs font-semibold text-charcoal/60 mb-1">{label}</label>
                 <input type={type} value={(addForm as Record<string, string>)[key]}
                   onChange={e => setAddForm(prev => ({ ...prev, [key]: e.target.value }))}
-                  className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-saffron/50" />
+                  className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#C0272D]/50" />
               </div>
             ))}
           </div>
           <div className="flex gap-2 mt-4">
-            <button onClick={addReservation} className="px-4 py-2 bg-saffron text-white text-sm font-semibold rounded-xl">Add</button>
+            <button onClick={addReservation} className="px-4 py-2 bg-[#C0272D] text-white text-sm font-semibold rounded-xl">Add</button>
             <button onClick={() => setShowAdd(false)} className="px-4 py-2 border border-gray-200 text-charcoal/60 text-sm rounded-xl">Cancel</button>
           </div>
         </div>
@@ -132,10 +132,10 @@ export default function ReservationsAdmin() {
         <div className="relative flex-1">
           <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal/40" />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search name, ref, phone..."
-            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm focus:outline-none focus:border-saffron/50" />
+            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm focus:outline-none focus:border-[#C0272D]/50" />
         </div>
         <input type="date" value={dateFilter} onChange={e => setDateFilter(e.target.value)}
-          className="px-3 py-2.5 rounded-xl bg-white border border-gray-200 text-sm focus:outline-none focus:border-saffron/50" />
+          className="px-3 py-2.5 rounded-xl bg-white border border-gray-200 text-sm focus:outline-none focus:border-[#C0272D]/50" />
         <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}
           className="px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm focus:outline-none cursor-pointer">
           <option value="all">All Statuses</option>
@@ -158,7 +158,7 @@ export default function ReservationsAdmin() {
                 <tbody className="divide-y divide-gray-100">
                   {filtered.map(r => (
                     <tr key={r.id} onClick={() => setSelected(selected?.id === r.id ? null : r)} className="hover:bg-gray-50 cursor-pointer">
-                      <td className="px-4 py-3 font-semibold text-saffron text-xs">{r.booking_ref}</td>
+                      <td className="px-4 py-3 font-semibold text-[#C0272D] text-xs">{r.booking_ref}</td>
                       <td className="px-4 py-3 text-charcoal">{r.customer_name}</td>
                       <td className="px-4 py-3 text-charcoal/70">{r.date}</td>
                       <td className="px-4 py-3 text-charcoal/70">{r.time}</td>

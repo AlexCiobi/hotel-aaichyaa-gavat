@@ -128,7 +128,7 @@ export default function Reservation() {
             transition={{ delay: 0.1 }}
             className="text-gold text-xs font-semibold uppercase tracking-[0.2em] block mb-2"
           >
-            Thali House
+            Hotel Aaichyaa Gavat
           </motion.span>
           <motion.h1
             initial={false}
@@ -165,7 +165,7 @@ export default function Reservation() {
               <div className="bg-offwhite rounded-2xl p-5 mb-6 text-left space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-charcoal/50">Booking Ref</span>
-                  <span className="font-bold text-saffron font-dmserif">{bookingRef}</span>
+                  <span className="font-bold text-[#C0272D] font-dmserif">{bookingRef}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-charcoal/50">Date & Time</span>
@@ -213,7 +213,7 @@ export default function Reservation() {
                     min={today}
                     onChange={(e) => setDate(e.target.value)}
                     className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none transition-colors duration-200 bg-offwhite cursor-pointer ${
-                      errors.date ? 'border-red-400' : 'border-transparent focus:border-saffron/60'
+                      errors.date ? 'border-red-400' : 'border-transparent focus:border-[#C0272D]/60'
                     }`}
                   />
                   {errors.date && <p className="text-red-500 text-xs mt-1">{errors.date}</p>}
@@ -233,8 +233,8 @@ export default function Reservation() {
                         onClick={() => setTime(slot)}
                         className={`py-2 px-1 rounded-xl text-xs font-semibold text-center transition-all duration-200 ${
                           time === slot
-                            ? 'bg-saffron text-white shadow-md'
-                            : 'bg-offwhite text-charcoal/70 hover:bg-saffron/10 hover:text-saffron'
+                            ? 'bg-[#C0272D] text-white shadow-md'
+                            : 'bg-offwhite text-charcoal/70 hover:bg-[#C0272D]/10 hover:text-[#C0272D]'
                         }`}
                       >
                         {slot}
@@ -252,7 +252,7 @@ export default function Reservation() {
                     <motion.button
                       whileTap={{ scale: 0.9 }}
                       onClick={() => setGuestCount((n) => Math.max(1, n - 1))}
-                      className="w-12 h-12 rounded-full bg-saffron/10 hover:bg-saffron/20 flex items-center justify-center text-saffron"
+                      className="w-12 h-12 rounded-full bg-[#C0272D]/10 hover:bg-[#C0272D]/20 flex items-center justify-center text-[#C0272D]"
                     >
                       <Minus size={20} />
                     </motion.button>
@@ -267,7 +267,7 @@ export default function Reservation() {
                     <motion.button
                       whileTap={{ scale: 0.9 }}
                       onClick={() => setGuestCount((n) => Math.min(20, n + 1))}
-                      className="w-12 h-12 rounded-full bg-saffron flex items-center justify-center text-white"
+                      className="w-12 h-12 rounded-full bg-[#C0272D] flex items-center justify-center text-white"
                     >
                       <Plus size={20} />
                     </motion.button>
@@ -290,13 +290,13 @@ export default function Reservation() {
                         onClick={() => setOccasion(id)}
                         className={`p-3 rounded-xl border-2 text-center transition-all duration-200 ${
                           occasion === id
-                            ? 'border-saffron bg-saffron/5 shadow-md'
-                            : 'border-charcoal/10 hover:border-saffron/30'
+                            ? 'border-[#C0272D] bg-[#C0272D]/5 shadow-md'
+                            : 'border-charcoal/10 hover:border-[#C0272D]/30'
                         }`}
-                        style={occasion === id ? { boxShadow: '0 0 12px rgba(255,107,0,0.15)' } : {}}
+                        style={occasion === id ? { boxShadow: '0 0 12px rgba(192,39,45,0.15)' } : {}}
                       >
                         <div className="text-2xl mb-1">{emoji}</div>
-                        <div className={`text-xs font-semibold ${occasion === id ? 'text-saffron' : 'text-charcoal/60'}`}>
+                        <div className={`text-xs font-semibold ${occasion === id ? 'text-[#C0272D]' : 'text-charcoal/60'}`}>
                           {id === 'none' ? 'None' : t(key)}
                         </div>
                       </motion.button>
@@ -327,8 +327,8 @@ export default function Reservation() {
                               isOccupied
                                 ? 'bg-red-100 text-red-400 cursor-not-allowed'
                                 : isSelected
-                                ? 'bg-saffron text-white shadow-md'
-                                : 'bg-white text-charcoal/60 hover:bg-saffron/10 hover:text-saffron border border-charcoal/10'
+                                ? 'bg-[#C0272D] text-white shadow-md'
+                                : 'bg-white text-charcoal/60 hover:bg-[#C0272D]/10 hover:text-[#C0272D] border border-charcoal/10'
                             }`}
                           >
                             T{n}
@@ -344,7 +344,7 @@ export default function Reservation() {
                     <div className="flex items-center gap-4 mt-3 text-xs text-charcoal/50">
                       <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-white border border-charcoal/10" />Available</span>
                       <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-red-100" />Occupied</span>
-                      <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-saffron" />Selected</span>
+                      <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-[#C0272D]" />Selected</span>
                     </div>
                   </div>
                 </div>
@@ -362,7 +362,7 @@ export default function Reservation() {
                       onChange={(e) => setCustomerName(e.target.value)}
                       placeholder="Full name"
                       className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none transition-colors duration-200 bg-offwhite ${
-                        errors.customerName ? 'border-red-400' : 'border-transparent focus:border-saffron/60'
+                        errors.customerName ? 'border-red-400' : 'border-transparent focus:border-[#C0272D]/60'
                       }`}
                     />
                     {errors.customerName && <p className="text-red-500 text-xs mt-1">{errors.customerName}</p>}
@@ -377,7 +377,7 @@ export default function Reservation() {
                         onChange={(e) => setWhatsapp(e.target.value)}
                         placeholder="88883 77788"
                         className={`flex-1 px-4 py-3 rounded-xl border text-sm focus:outline-none transition-colors duration-200 bg-offwhite ${
-                          errors.whatsapp ? 'border-red-400' : 'border-transparent focus:border-saffron/60'
+                          errors.whatsapp ? 'border-red-400' : 'border-transparent focus:border-[#C0272D]/60'
                         }`}
                       />
                     </div>
@@ -390,7 +390,7 @@ export default function Reservation() {
                       onChange={(e) => setSpecialRequests(e.target.value)}
                       placeholder="Any special arrangements, dietary requirements..."
                       rows={3}
-                      className="w-full px-4 py-3 rounded-xl border border-transparent focus:border-saffron/60 text-sm focus:outline-none transition-colors duration-200 bg-offwhite resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-transparent focus:border-[#C0272D]/60 text-sm focus:outline-none transition-colors duration-200 bg-offwhite resize-none"
                     />
                   </div>
                 </div>
@@ -402,7 +402,7 @@ export default function Reservation() {
                   whileTap={{ scale: 0.97 }}
                   onClick={handleSubmit}
                   disabled={submitting}
-                  className="w-full bg-saffron hover:bg-orange-600 disabled:bg-saffron/60 text-white font-bold text-lg py-4 rounded-2xl shadow-lg shadow-saffron/30 transition-all duration-200"
+                  className="w-full bg-[#C0272D] hover:bg-[#9e1f25] disabled:bg-[#C0272D]/60 text-white font-bold text-lg py-4 rounded-2xl shadow-lg shadow-[#C0272D]/30 transition-all duration-200"
                 >
                   {submitting ? 'Confirming...' : t('reservationPage.confirmBooking')}
                 </motion.button>

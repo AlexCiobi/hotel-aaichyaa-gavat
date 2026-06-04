@@ -92,7 +92,7 @@ export default function MenuAdmin() {
     <div>
       <label className="block text-xs font-semibold text-charcoal/60 mb-1">{label}</label>
       <input type={type} value={String(obj[field] ?? '')} onChange={e => setObj({ ...obj, [field]: type === 'number' ? Number(e.target.value) : e.target.value })}
-        className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-saffron/50" />
+        className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#C0272D]/50" />
     </div>
   )
 
@@ -105,7 +105,7 @@ export default function MenuAdmin() {
         </div>
         <div className="flex gap-2">
           <button onClick={fetch} className="p-2 rounded-xl bg-white border border-gray-200 text-charcoal/50 hover:text-charcoal"><RefreshCw size={16} /></button>
-          <button onClick={() => setShowAdd(v => !v)} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-saffron text-white text-sm font-semibold shadow-md shadow-saffron/20">
+          <button onClick={() => setShowAdd(v => !v)} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#C0272D] text-white text-sm font-semibold shadow-md shadow-[#C0272D]/20">
             <Plus size={15} /> Add Item
           </button>
         </div>
@@ -113,7 +113,7 @@ export default function MenuAdmin() {
 
       {/* Add Form */}
       {showAdd && (
-        <div className="bg-white rounded-2xl p-5 border border-saffron/20 shadow-sm mb-5">
+        <div className="bg-white rounded-2xl p-5 border border-[#C0272D]/20 shadow-sm mb-5">
           <h3 className="font-semibold text-charcoal mb-4">New Menu Item</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <F label="English Name *" field="name_en" obj={form as unknown as Record<string, unknown>} setObj={v => setForm(v as typeof form)} />
@@ -134,12 +134,12 @@ export default function MenuAdmin() {
                 <input type="checkbox" checked={form.is_veg} onChange={e => setForm(prev => ({ ...prev, is_veg: e.target.checked }))} className="accent-green-600" /> Veg
               </label>
               <label className="flex items-center gap-2 text-sm cursor-pointer">
-                <input type="checkbox" checked={form.is_available} onChange={e => setForm(prev => ({ ...prev, is_available: e.target.checked }))} className="accent-saffron" /> Available
+                <input type="checkbox" checked={form.is_available} onChange={e => setForm(prev => ({ ...prev, is_available: e.target.checked }))} className="accent-[#C0272D]" /> Available
               </label>
             </div>
           </div>
           <div className="flex gap-2 mt-4">
-            <button onClick={addItem} disabled={saving} className="px-4 py-2 bg-saffron text-white text-sm font-semibold rounded-xl disabled:opacity-60">
+            <button onClick={addItem} disabled={saving} className="px-4 py-2 bg-[#C0272D] text-white text-sm font-semibold rounded-xl disabled:opacity-60">
               {saving ? 'Adding...' : 'Add Item'}
             </button>
             <button onClick={() => setShowAdd(false)} className="px-4 py-2 border border-gray-200 text-charcoal/60 text-sm rounded-xl">Cancel</button>
@@ -152,7 +152,7 @@ export default function MenuAdmin() {
         <div className="relative flex-1">
           <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal/40" />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search items..."
-            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm focus:outline-none focus:border-saffron/50" />
+            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm focus:outline-none focus:border-[#C0272D]/50" />
         </div>
         <select value={catFilter} onChange={e => setCatFilter(e.target.value)}
           className="px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-sm focus:outline-none cursor-pointer">

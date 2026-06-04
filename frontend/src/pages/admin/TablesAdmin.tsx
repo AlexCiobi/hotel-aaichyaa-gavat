@@ -18,7 +18,7 @@ function statusColor(s: string) {
   const map: Record<string, string> = {
     available: 'bg-green-100 text-green-700 border-green-200',
     occupied: 'bg-red-100 text-red-600 border-red-200',
-    reserved: 'bg-saffron/10 text-saffron border-saffron/20',
+    reserved: 'bg-[#C0272D]/10 text-[#C0272D] border-[#C0272D]/20',
     maintenance: 'bg-gray-100 text-gray-500 border-gray-200',
   }
   return map[s] ?? 'bg-gray-100 text-gray-500'
@@ -70,7 +70,7 @@ export default function TablesAdmin() {
           <h1 className="font-playfair font-bold text-2xl text-charcoal">Tables</h1>
           <p className="text-charcoal/50 text-sm">{tables.length} tables total</p>
         </div>
-        <button onClick={() => setShowAdd(v => !v)} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-saffron text-white text-sm font-semibold shadow-md shadow-saffron/20">
+        <button onClick={() => setShowAdd(v => !v)} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#C0272D] text-white text-sm font-semibold shadow-md shadow-[#C0272D]/20">
           <Plus size={15} /> Add Table
         </button>
       </div>
@@ -87,7 +87,7 @@ export default function TablesAdmin() {
 
       {/* Add Form */}
       {showAdd && (
-        <div className="bg-white rounded-2xl p-5 border border-saffron/20 shadow-sm mb-5">
+        <div className="bg-white rounded-2xl p-5 border border-[#C0272D]/20 shadow-sm mb-5">
           <h3 className="font-semibold text-charcoal mb-4">Add New Table</h3>
           <div className="grid grid-cols-3 gap-3">
             <div>
@@ -109,7 +109,7 @@ export default function TablesAdmin() {
             </div>
           </div>
           <div className="flex gap-2 mt-4">
-            <button onClick={addTable} className="px-4 py-2 bg-saffron text-white text-sm font-semibold rounded-xl">Add</button>
+            <button onClick={addTable} className="px-4 py-2 bg-[#C0272D] text-white text-sm font-semibold rounded-xl">Add</button>
             <button onClick={() => setShowAdd(false)} className="px-4 py-2 border border-gray-200 text-charcoal/60 text-sm rounded-xl">Cancel</button>
           </div>
         </div>

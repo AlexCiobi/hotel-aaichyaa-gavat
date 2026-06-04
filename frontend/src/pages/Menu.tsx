@@ -62,15 +62,15 @@ export default function Menu() {
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-saffron/70 to-charcoal/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#C0272D]/70 to-charcoal/90" />
         <div className="relative z-10 text-center px-4">
           <motion.span
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-saffron/80 text-xs font-semibold uppercase tracking-[0.2em] block mb-2"
+            className="text-[#C0272D]/80 text-xs font-semibold uppercase tracking-[0.2em] block mb-2"
           >
-            Thali House
+            Hotel Aaichyaa Gavat
           </motion.span>
           <motion.h1
             initial={false}
@@ -97,8 +97,8 @@ export default function Menu() {
                   whileTap={{ scale: 0.96 }}
                   className={`relative flex-shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                     isActive
-                      ? 'bg-saffron text-white shadow-md'
-                      : 'bg-offwhite text-charcoal/70 hover:bg-saffron/10 hover:text-saffron'
+                      ? 'bg-[#C0272D] text-white shadow-md'
+                      : 'bg-offwhite text-charcoal/70 hover:bg-[#C0272D]/10 hover:text-[#C0272D]'
                   }`}
                 >
                   {label}
@@ -123,7 +123,7 @@ export default function Menu() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={t('menu.searchPlaceholder')}
-                className="w-full pl-9 pr-8 py-2 text-sm bg-offwhite rounded-full border border-transparent focus:border-saffron/50 focus:outline-none transition-colors duration-200"
+                className="w-full pl-9 pr-8 py-2 text-sm bg-offwhite rounded-full border border-transparent focus:border-[#C0272D]/50 focus:outline-none transition-colors duration-200"
               />
               {search && (
                 <button
@@ -204,7 +204,7 @@ export default function Menu() {
                     transition={{ delay: Math.min(i * 0.05, 0.3) }}
                     whileHover={{ scale: 1.02, y: -4 }}
                     style={{ transition: 'box-shadow 0.2s' }}
-                    className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl hover:ring-1 hover:ring-saffron/30 transition-shadow duration-300 group"
+                    className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl hover:ring-1 hover:ring-[#C0272D]/30 transition-shadow duration-300 group"
                   >
                     <div className="relative overflow-hidden h-48">
                       <motion.img
@@ -214,6 +214,7 @@ export default function Menu() {
                         alt={name}
                         className="w-full h-full object-cover"
                         loading="lazy"
+                        onError={(e) => { e.currentTarget.src = '/images/default-food.jpg' }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                       {/* Veg/Non-veg indicator */}
@@ -244,13 +245,13 @@ export default function Menu() {
                           initial={false}
                           animate={{ scale: 1, opacity: 1 }}
                           transition={{ delay: 0.1 }}
-                          className="font-dmserif text-2xl text-saffron"
+                          className="font-dmserif text-2xl text-[#C0272D]"
                         >
                           ₹{item.price}
                         </motion.span>
                         <Link
                           to="/order"
-                          className="bg-saffron/10 hover:bg-saffron text-saffron hover:text-white text-xs font-semibold px-4 py-2 rounded-full transition-all duration-200"
+                          className="bg-[#C0272D]/10 hover:bg-[#C0272D] text-[#C0272D] hover:text-white text-xs font-semibold px-4 py-2 rounded-full transition-all duration-200"
                         >
                           {t('buttons.addToOrder')}
                         </Link>
