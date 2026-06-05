@@ -8,7 +8,7 @@ export default function SettingsAdmin() {
 
   const [restaurantInfo, setRestaurantInfo] = useState({
     name: 'Hotel Aaichyaa Gavat', address: 'Bavaskar Building, RB Road, Kagwade Mala, Ichalkaranji, Maharashtra 416115',
-    phone: '+91 88883 77788', hours: '11:00 AM – 11:00 PM, Every Day', whatsapp: '+918888377788',
+    phone: '+91 73858 64885', hours: '11:00 AM – 11:00 PM, Every Day', whatsapp: '+917083058185',
   })
   const [razorpay, setRazorpay] = useState({ key_id: '', key_secret: '' })
   const [showRazorpaySecret, setShowRazorpaySecret] = useState(false)
@@ -60,7 +60,7 @@ export default function SettingsAdmin() {
           <Field label="Address" value={restaurantInfo.address} onChange={v => setRestaurantInfo(p => ({ ...p, address: v }))} />
           <Field label="Phone" value={restaurantInfo.phone} onChange={v => setRestaurantInfo(p => ({ ...p, phone: v }))} />
           <Field label="Opening Hours" value={restaurantInfo.hours} onChange={v => setRestaurantInfo(p => ({ ...p, hours: v }))} />
-          <Field label="WhatsApp Notification Number" value={restaurantInfo.whatsapp} onChange={v => setRestaurantInfo(p => ({ ...p, whatsapp: v }))} placeholder="+918888377788" />
+          <Field label="WhatsApp Notification Number" value={restaurantInfo.whatsapp} onChange={v => setRestaurantInfo(p => ({ ...p, whatsapp: v }))} placeholder="+917083058185" />
         </div>
         <button onClick={saveRestaurantInfo} className="flex items-center gap-2 mt-4 px-4 py-2.5 bg-[#C0272D] text-white rounded-xl text-sm font-semibold shadow-md shadow-[#C0272D]/20">
           <Save size={15} /> Save Info

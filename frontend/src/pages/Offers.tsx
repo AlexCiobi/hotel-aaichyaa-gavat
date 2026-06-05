@@ -322,7 +322,7 @@ export default function Offers() {
             </div>
             <motion.a
               whileTap={{ scale: 0.97 }}
-              href="https://wa.me/918888377788?text=Hi! I want to receive daily offers from Hotel Aaichyaa Gavat."
+              href="https://wa.me/917083058185?text=Hi! I want to receive daily offers from Hotel Aaichyaa Gavat."
               target="_blank"
               rel="noopener noreferrer"
               className="flex-shrink-0 flex items-center gap-2 bg-[#25D366] hover:bg-green-500 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 shadow-lg"

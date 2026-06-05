@@ -22,7 +22,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-3 mb-4">
               <a
-                href="https://wa.me/918888377788"
+                href="https://wa.me/917083058185"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#25D366] text-sm font-semibold px-4 py-2 rounded-full transition-colors duration-200"
@@ -107,10 +107,10 @@ export default function Footer() {
               <li className="flex items-center gap-3">
                 <Phone size={16} className="text-[#C0272D] flex-shrink-0" />
                 <a
-                  href="tel:+918888377788"
+                  href="tel:+917385864885"
                   className="text-white/60 text-sm hover:text-[#C0272D] transition-colors duration-200"
                 >
-                  +91 88883 77788
+                  +91 73858 64885
                 </a>
               </li>
               <li className="flex items-center gap-3">

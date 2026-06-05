@@ -153,7 +153,7 @@ export default function Contact() {
             {/* Call button */}
             <ScrollReveal direction="right">
               <motion.a
-                href="tel:+918888377788"
+                href="tel:+917385864885"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 animate={{ boxShadow: ['0 0 0px rgba(192,39,45,0)', '0 0 24px rgba(192,39,45,0.35)', '0 0 0px rgba(192,39,45,0)'] }}
@@ -165,7 +165,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <div className="text-sm font-semibold opacity-80 mb-0.5">{t('buttons.callNow')}</div>
-                  <div className="font-dmserif text-2xl">+91 88883 77788</div>
+                  <div className="font-dmserif text-2xl">+91 73858 64885</div>
                 </div>
               </motion.a>
             </ScrollReveal>
@@ -173,7 +173,7 @@ export default function Contact() {
             {/* WhatsApp button */}
             <ScrollReveal direction="right" delay={0.08}>
               <motion.a
-                href="https://wa.me/918888377788"
+                href="https://wa.me/917083058185"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}

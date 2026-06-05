@@ -193,7 +193,7 @@ export default function Reservation() {
                 We will confirm your reservation via WhatsApp on +91 {whatsapp}
               </p>
               <a
-                href={`https://wa.me/918888377788?text=Hi! I just made a reservation (Ref: ${bookingRef}) for ${date} at ${time} for ${guestCount} guests.`}
+                href={`https://wa.me/917083058185?text=Hi! I just made a reservation (Ref: ${bookingRef}) for ${date} at ${time} for ${guestCount} guests.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-[#25D366] text-white font-semibold px-6 py-3 rounded-full shadow"
@@ -375,7 +375,7 @@ export default function Reservation() {
                         type="tel"
                         value={whatsapp}
                         onChange={(e) => setWhatsapp(e.target.value)}
-                        placeholder="88883 77788"
+                        placeholder="73858 64885"
                         className={`flex-1 px-4 py-3 rounded-xl border text-sm focus:outline-none transition-colors duration-200 bg-offwhite ${
                           errors.whatsapp ? 'border-red-400' : 'border-transparent focus:border-[#C0272D]/60'
                         }`}

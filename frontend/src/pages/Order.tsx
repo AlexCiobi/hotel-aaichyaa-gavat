@@ -347,7 +347,7 @@ export default function Order() {
               <p className="text-charcoal/50 text-sm mb-6">
                 We will confirm your order via WhatsApp on +91 {whatsapp}
               </p>
-              <a href={`https://wa.me/918888377788?text=Hi! I just placed order ${orderNumber}. Can you confirm?`}
+              <a href={`https://wa.me/917083058185?text=Hi! I just placed order ${orderNumber}. Can you confirm?`}
                 target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-[#25D366] text-white font-semibold px-6 py-3 rounded-full shadow">
                 Confirm on WhatsApp
@@ -542,7 +542,7 @@ export default function Order() {
                         <label className="block text-sm font-semibold text-charcoal mb-1.5">{t('reservationPage.yourWhatsApp')}</label>
                         <div className="flex items-center gap-2">
                           <span className="bg-offwhite border border-charcoal/20 px-3 py-3 rounded-xl text-sm text-charcoal/60 font-semibold flex-shrink-0">+91</span>
-                          <input type="tel" value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="88883 77788"
+                          <input type="tel" value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="73858 64885"
                             className={`flex-1 px-4 py-3 rounded-xl border text-sm focus:outline-none transition-colors bg-white ${errors.whatsapp ? 'border-red-400' : 'border-charcoal/20 focus:border-[#C0272D]/60'}`} />
                         </div>
                         {errors.whatsapp && <p className="text-red-500 text-xs mt-1">{errors.whatsapp}</p>}

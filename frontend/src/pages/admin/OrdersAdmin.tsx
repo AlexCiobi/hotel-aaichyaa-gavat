@@ -63,7 +63,7 @@ function InvoiceModal({ order, onClose }: { order: Order; onClose: () => void })
             <img src="/logo.png" alt="Hotel Aaichyaa Gavat" className="w-12 h-12 rounded-full object-cover mx-auto mb-2" />
             <h1 className="font-playfair font-bold text-2xl text-charcoal">Hotel Aaichyaa Gavat</h1>
             <p className="text-charcoal/50 text-xs mt-0.5">Bavaskar Building, RB Road, Kagwade Mala, Ichalkaranji 416115</p>
-            <p className="text-charcoal/50 text-xs">+91 88883 77788</p>
+            <p className="text-charcoal/50 text-xs">+91 73858 64885</p>
           </div>
 
           {/* Invoice title + number */}
