@@ -18,10 +18,6 @@ import Contact from './pages/Contact'
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
 import Profile from './pages/auth/Profile'
-import WaiterLogin from './pages/waiter/WaiterLogin'
-import WaiterPortal from './pages/waiter/WaiterPortal'
-import KitchenLogin from './pages/kitchen/KitchenLogin'
-import KitchenDisplay from './pages/kitchen/KitchenDisplay'
 import AdminLogin from './pages/admin/AdminLogin'
 import AdminLayout from './pages/admin/AdminLayout'
 import Dashboard from './pages/admin/Dashboard'
@@ -36,27 +32,6 @@ import SettingsAdmin from './pages/admin/SettingsAdmin'
 function MainApp() {
   const location = useLocation()
   const isAdmin = location.pathname.startsWith('/admin')
-  const isWaiter = location.pathname.startsWith('/waiter')
-  const isKitchen = location.pathname.startsWith('/kitchen')
-
-  if (isWaiter) {
-    return (
-      <Routes>
-        <Route path="/waiter/login" element={<WaiterLogin />} />
-        <Route path="/waiter" element={<WaiterPortal />} />
-      </Routes>
-    )
-  }
-
-  if (isKitchen) {
-    return (
-      <Routes>
-        <Route path="/kitchen/login" element={<KitchenLogin />} />
-        <Route path="/kitchen" element={<KitchenDisplay />} />
-      </Routes>
-    )
-  }
-
   if (isAdmin) {
     return (
       <Routes>
