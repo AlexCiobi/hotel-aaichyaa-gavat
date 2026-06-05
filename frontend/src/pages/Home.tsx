@@ -6,7 +6,7 @@ import {
   useScroll,
   useTransform,
 } from 'framer-motion'
-import { Star, MapPin, Phone, Clock, ChevronDown, Quote } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 import ScrollReveal from '../components/ScrollReveal'
 import { menuData } from '../lib/menuData'
@@ -33,27 +33,6 @@ const SIGNATURE_ITEMS = [
   menuData.find((m) => m.id === 'thali-005')!,
   menuData.find((m) => m.id === 'thali-009')!,
   menuData.find((m) => m.id === 'thali-002')!,
-]
-
-const REVIEWS = [
-  {
-    name: 'Rahul Patil',
-    rating: 5,
-    text: 'Best thali in Ichalkaranji! The Alani Mutton Thali is absolutely incredible. The rassa is perfectly spiced and the bhakri is fresh. Highly recommended!',
-    date: '2 weeks ago',
-  },
-  {
-    name: 'Priya Kulkarni',
-    rating: 5,
-    text: 'Amazing food and great value. The Veg Special Bhakri Thali with pithle and thecha is out of this world. Love the authentic taste!',
-    date: '1 month ago',
-  },
-  {
-    name: 'Aditya Desai',
-    rating: 4,
-    text: 'Great ambience and wonderful food. The Chicken Fry Thali with Pandhra Rassa is a must-try. Will definitely visit again with family.',
-    date: '3 weeks ago',
-  },
 ]
 
 const MENU_PREVIEW_IDS = ['thali-002', 'thali-009', 'main-007', 'main-005']
@@ -406,9 +385,8 @@ export default function Home() {
               </p>
 
               {/* Stats */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+              <div className="grid grid-cols-3 gap-6">
                 {[
-                  { target: 967, suffix: '+', label: t('general.reviews') },
                   { target: 40, suffix: '★', label: t('general.rating'), divisor: 10 },
                   { target: 7, suffix: '', label: t('general.years') },
                   { target: 25, suffix: '+', label: t('general.items') },
@@ -438,10 +416,6 @@ export default function Home() {
                   className="w-full rounded-2xl shadow-2xl object-cover h-96 sm:h-[480px]"
                   loading="lazy"
                 />
-                <div className="absolute -bottom-5 -left-5 bg-[#C0272D] text-white rounded-2xl p-4 shadow-xl">
-                  <div className="font-dmserif text-2xl">4.0★</div>
-                  <div className="text-xs font-semibold opacity-90">967+ Reviews</div>
-                </div>
               </div>
             </ScrollReveal>
           </div>
@@ -579,159 +553,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ========== REVIEWS ========== */}
-      <section className="py-20 bg-brown">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-14">
-              <span className="text-[#C0272D] text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">
-                Testimonials
-              </span>
-              <h2 className="font-playfair font-bold text-3xl sm:text-4xl text-white">
-                {t('sections.whatGuestsSay')}
-              </h2>
-              <div className="w-16 h-1 bg-[#C0272D] mx-auto mt-4 rounded-full" />
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {REVIEWS.map((review, i) => (
-              <ScrollReveal key={i} delay={i * 0.12} direction="up">
-                <motion.div
-                  whileHover={{ scale: 1.02, y: -4 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                  className="bg-white/5 border border-white/10 rounded-2xl p-6 relative overflow-hidden"
-                >
-                  <Quote
-                    size={40}
-                    className="absolute top-4 right-4 text-[#C0272D]/20"
-                  />
-                  <div className="flex items-center gap-1 mb-3">
-                    {[...Array(review.rating)].map((_, j) => (
-                      <Star key={j} size={14} fill="#D4A017" stroke="#D4A017" />
-                    ))}
-                  </div>
-                  <p className="text-white/75 text-sm leading-relaxed mb-5 italic">
-                    "{review.text}"
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-white font-semibold text-sm">{review.name}</div>
-                      <div className="text-white/40 text-xs">{review.date}</div>
-                    </div>
-                    <div className="w-9 h-9 rounded-full bg-[#C0272D]/20 flex items-center justify-center">
-                      <span className="text-[#C0272D] font-bold text-sm">
-                        {review.name[0]}
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ========== LOCATION ========== */}
-      <section className="py-20 bg-offwhite">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-14">
-              <span className="text-[#C0272D] text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">
-                Where To Find Us
-              </span>
-              <h2 className="font-playfair font-bold text-3xl sm:text-4xl text-charcoal">
-                {t('sections.visitUs')}
-              </h2>
-              <div className="w-16 h-1 bg-[#C0272D] mx-auto mt-4 rounded-full" />
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-            {/* Map */}
-            <ScrollReveal direction="left">
-              <div className="map-container rounded-2xl overflow-hidden shadow-xl h-64 sm:h-80">
-                <iframe
-                  title="Hotel Aaichyaa Gavat Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3824.234!2d74.4697!3d16.6887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc1001!2sThali+House!5e0!3m2!1sen!2sin!4v1!5m2!1sen!2sin"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-            </ScrollReveal>
-
-            {/* Contact info */}
-            <ScrollReveal direction="right">
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-[#C0272D]/10 flex items-center justify-center flex-shrink-0">
-                    <MapPin size={22} className="text-[#C0272D]" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-charcoal mb-1">{t('contact.address')}</h4>
-                    <p className="text-charcoal/60 text-sm leading-relaxed">
-                      Bavaskar Building, RB Road, Kagwade Mala,<br />
-                      Ichalkaranji, Maharashtra 416115
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-[#C0272D]/10 flex items-center justify-center flex-shrink-0">
-                    <Phone size={22} className="text-[#C0272D]" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-charcoal mb-1">{t('contact.phone')}</h4>
-                    <a href="tel:+918888377788" className="text-[#C0272D] font-semibold hover:underline">
-                      +91 88883 77788
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-[#C0272D]/10 flex items-center justify-center flex-shrink-0">
-                    <Clock size={22} className="text-[#C0272D]" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-charcoal mb-1">{t('contact.hours')}</h4>
-                    <p className="text-charcoal/60 text-sm">11:00 AM – 11:00 PM, Every Day</p>
-                    <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 text-xs font-semibold px-2.5 py-0.5 rounded-full mt-1">
-                      <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                      {t('contact.openNow')}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex gap-3 pt-2">
-                  <motion.div whileTap={{ scale: 0.97 }}>
-                    <a
-                      href="tel:+918888377788"
-                      className="flex items-center gap-2 bg-[#C0272D] hover:bg-[#9e1f25] text-white font-semibold px-5 py-3 rounded-full transition-all duration-200 text-sm"
-                    >
-                      <Phone size={16} />
-                      {t('buttons.callNow')}
-                    </a>
-                  </motion.div>
-                  <motion.div whileTap={{ scale: 0.97 }}>
-                    <a
-                      href="https://wa.me/918888377788"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 border-2 border-[#C0272D] text-[#C0272D] hover:bg-[#C0272D] hover:text-white font-semibold px-5 py-3 rounded-full transition-all duration-200 text-sm"
-                    >
-                      {t('buttons.whatsapp')}
-                    </a>
-                  </motion.div>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
     </motion.div>
   )
 }
