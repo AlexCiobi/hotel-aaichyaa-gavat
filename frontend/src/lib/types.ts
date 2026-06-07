@@ -1,13 +1,14 @@
-export type Language = 'mr' | 'hi' | 'en' | 'kn'
+export type Language = 'mr' | 'en'
 
 export type MenuCategory =
-  | 'THALI'
-  | 'STARTERS'
-  | 'MAIN_COURSE'
-  | 'BREADS'
+  | 'VEG'
+  | 'CHICKEN_THALI'
+  | 'MUTTON_THALI'
+  | 'HANDI'
+  | 'EGG'
   | 'RICE'
-  | 'BEVERAGES'
-  | 'SNACKS'
+  | 'BREADS'
+  | 'OTHERS'
 
 export interface MenuItem {
   id: string
@@ -17,13 +18,9 @@ export interface MenuItem {
   is_available: boolean
   image_url: string
   name_mr: string
-  name_hi: string
   name_en: string
-  name_kn: string
   description_mr: string
-  description_hi: string
   description_en: string
-  description_kn: string
 }
 
 export interface OrderItem {

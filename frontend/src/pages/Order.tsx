@@ -21,7 +21,7 @@ const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
 type Step = 1 | 2 | 3
 
 const CATEGORIES: (MenuCategory | 'ALL')[] = [
-  'ALL', 'THALI', 'STARTERS', 'MAIN_COURSE', 'BREADS', 'RICE', 'BEVERAGES', 'SNACKS',
+  'ALL', 'VEG', 'CHICKEN_THALI', 'MUTTON_THALI', 'HANDI', 'EGG', 'RICE', 'BREADS', 'OTHERS',
 ]
 
 const TABLE_ZONES = ['Main', 'Window', 'Private', 'Outdoor'] as const
@@ -369,7 +369,7 @@ export default function Order() {
                           className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
                             activeCategory === cat ? 'bg-[#C0272D] text-white' : 'bg-white text-charcoal/60 hover:bg-[#C0272D]/10'
                           }`}>
-                          {cat === 'ALL' ? 'All' : cat === 'MAIN_COURSE' ? 'Main' : cat.charAt(0) + cat.slice(1).toLowerCase()}
+                          {cat === 'ALL' ? 'All' : cat === 'CHICKEN_THALI' ? 'Chicken' : cat === 'MUTTON_THALI' ? 'Mutton' : cat.charAt(0) + cat.slice(1).toLowerCase()}
                         </button>
                       ))}
                     </div>

@@ -7,10 +7,8 @@ import { useAuth } from '../context/AuthContext'
 import type { Language } from '../lib/types'
 
 const LANGS: { code: Language; label: string }[] = [
-  { code: 'mr', label: 'MR' },
-  { code: 'hi', label: 'HI' },
+  { code: 'mr', label: 'मराठी' },
   { code: 'en', label: 'EN' },
-  { code: 'kn', label: 'KN' },
 ]
 
 const NAV_LINKS = [

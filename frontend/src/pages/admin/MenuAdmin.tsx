@@ -11,17 +11,15 @@ interface MenuItem {
   is_available: boolean
   image_url: string
   name_mr: string
-  name_hi: string
   name_en: string
-  name_kn: string
   description_en: string
 }
 
-const CATEGORIES = ['thali', 'starters', 'main_course', 'breads', 'rice', 'beverages', 'snacks']
+const CATEGORIES = ['veg', 'chicken_thali', 'mutton_thali', 'handi', 'egg', 'rice', 'breads', 'others']
 
 const EMPTY_FORM: Omit<MenuItem, 'id'> = {
-  category: 'thali', price: 0, is_veg: true, is_available: true,
-  image_url: '', name_mr: '', name_hi: '', name_en: '', name_kn: '', description_en: '',
+  category: 'veg', price: 0, is_veg: true, is_available: true,
+  image_url: '', name_mr: '', name_en: '', description_en: '',
 }
 
 export default function MenuAdmin() {
@@ -66,7 +64,7 @@ export default function MenuAdmin() {
     if (!editing) return
     setSaving(true)
     const { error } = await supabase.from('menu_items').update({
-      name_mr: editing.name_mr, name_hi: editing.name_hi, name_en: editing.name_en, name_kn: editing.name_kn,
+      name_mr: editing.name_mr, name_en: editing.name_en,
       price: editing.price, category: editing.category, is_veg: editing.is_veg,
       is_available: editing.is_available, image_url: editing.image_url,
     }).eq('id', editing.id)
@@ -118,8 +116,6 @@ export default function MenuAdmin() {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <F label="English Name *" field="name_en" obj={form as unknown as Record<string, unknown>} setObj={v => setForm(v as typeof form)} />
             <F label="Marathi Name" field="name_mr" obj={form as unknown as Record<string, unknown>} setObj={v => setForm(v as typeof form)} />
-            <F label="Hindi Name" field="name_hi" obj={form as unknown as Record<string, unknown>} setObj={v => setForm(v as typeof form)} />
-            <F label="Kannada Name" field="name_kn" obj={form as unknown as Record<string, unknown>} setObj={v => setForm(v as typeof form)} />
             <F label="Price (₹)" field="price" type="number" obj={form as unknown as Record<string, unknown>} setObj={v => setForm(v as typeof form)} />
             <F label="Image URL" field="image_url" obj={form as unknown as Record<string, unknown>} setObj={v => setForm(v as typeof form)} />
             <div>
@@ -178,7 +174,7 @@ export default function MenuAdmin() {
                     {editing?.id === item.id ? (
                       <td colSpan={6} className="px-4 py-3">
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
-                          {(['name_en', 'name_mr', 'name_hi', 'name_kn'] as const).map(f => (
+                          {(['name_en', 'name_mr'] as const).map(f => (
                             <div key={f}>
                               <label className="block text-xs text-charcoal/50 mb-1">{f}</label>
                               <input value={editing[f]} onChange={e => setEditing({ ...editing, [f]: e.target.value })}

@@ -9,9 +9,9 @@ import type { Language } from '../../lib/types'
 
 const LANG_OPTIONS: { code: Language; native: string }[] = [
   { code: 'mr', native: 'मराठी' },
-  { code: 'hi', native: 'हिंदी' },
+  
   { code: 'en', native: 'English' },
-  { code: 'kn', native: 'ಕನ್ನಡ' },
+  
 ]
 
 export default function Signup() {

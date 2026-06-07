@@ -10,13 +10,14 @@ type FilterVeg = 'all' | 'veg' | 'nonveg'
 
 const CATEGORIES: { id: MenuCategory | 'ALL'; label: string }[] = [
   { id: 'ALL', label: 'All' },
-  { id: 'THALI', label: 'Thali' },
-  { id: 'STARTERS', label: 'Starters' },
-  { id: 'MAIN_COURSE', label: 'Main Course' },
-  { id: 'BREADS', label: 'Breads' },
+  { id: 'VEG', label: 'Veg' },
+  { id: 'CHICKEN_THALI', label: 'Chicken Thali' },
+  { id: 'MUTTON_THALI', label: 'Mutton Thali' },
+  { id: 'HANDI', label: 'Handi' },
+  { id: 'EGG', label: 'Egg' },
   { id: 'RICE', label: 'Rice' },
-  { id: 'BEVERAGES', label: 'Beverages' },
-  { id: 'SNACKS', label: 'Snacks' },
+  { id: 'BREADS', label: 'Breads' },
+  { id: 'OTHERS', label: 'Others' },
 ]
 
 export default function Menu() {
@@ -230,7 +231,7 @@ export default function Menu() {
                         />
                       </span>
                       <span className="absolute top-3 right-3 bg-charcoal/60 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm">
-                        {item.category === 'MAIN_COURSE' ? 'Main' : item.category}
+                        {item.category === 'CHICKEN_THALI' ? 'Chicken' : item.category === 'MUTTON_THALI' ? 'Mutton' : item.category}
                       </span>
                     </div>
                     <div className="p-4">

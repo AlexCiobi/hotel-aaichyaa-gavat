@@ -14,28 +14,24 @@ import type { Language } from '../lib/types'
 
 const HERO_BG = '/images/hero-1.jpg'
 
-const LANG_CYCLE: Language[] = ['mr', 'hi', 'en', 'kn']
+const LANG_CYCLE: Language[] = ['mr', 'en']
 
 const HERO_TAGLINES: Record<Language, string> = {
   mr: 'महाराष्ट्राची खरी चव',
-  hi: 'महाराष्ट्र का असली स्वाद',
   en: 'The Real Taste of Maharashtra',
-  kn: 'ಮಹಾರಾಷ್ಟ್ರದ ನಿಜವಾದ ರುಚಿ',
 }
 const HERO_SUBTITLES: Record<Language, string> = {
   mr: 'हॉटेल आईच्या गावातमध्ये अस्सल महाराष्ट्रीयन थाळी अनुभवा',
-  hi: 'होटेल आईच्या गावात में प्रामाणिक महाराष्ट्रीयन थाली का आनंद लें',
   en: 'Experience authentic Maharashtrian Thali at Hotel Aaichyaa Gavat, Ichalkaranji',
-  kn: 'ಹೋಟೆಲ್ ಆಈಚ್ಯಾ ಗಾವತ್‌ನಲ್ಲಿ ಅಸಲಿ ಮಹಾರಾಷ್ಟ್ರೀಯನ್ ಥಾಲಿ ಅನುಭವಿಸಿ',
 }
 
 const SIGNATURE_ITEMS = [
-  menuData.find((m) => m.id === 'thali-005')!,
-  menuData.find((m) => m.id === 'thali-009')!,
-  menuData.find((m) => m.id === 'thali-002')!,
+  menuData.find((m) => m.id === 'cthali-005')!,
+  menuData.find((m) => m.id === 'mthali-005')!,
+  menuData.find((m) => m.id === 'handi-001')!,
 ]
 
-const MENU_PREVIEW_IDS = ['thali-002', 'thali-009', 'main-007', 'main-005']
+const MENU_PREVIEW_IDS = ['veg-010', 'cthali-001', 'mthali-001', 'handi-007']
 
 // Counter hook
 function useCounter(target: number, isVisible: boolean, duration = 1800) {
@@ -205,8 +201,7 @@ export default function Home() {
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 0.55, ease: 'easeInOut' }}
                 className={`font-playfair font-bold text-3xl sm:text-5xl lg:text-6xl text-white leading-tight ${
-                  currentLang === 'mr' || currentLang === 'hi' ? 'font-devanagari' : ''
-                } ${currentLang === 'kn' ? 'font-kannada' : ''}`}
+                  currentLang === 'mr' ? 'font-devanagari' : ''}`}
               >
                 {HERO_TAGLINES[currentLang]}
               </motion.h1>
@@ -223,8 +218,7 @@ export default function Home() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, ease: 'easeInOut', delay: 0.08 }}
                 className={`text-white/75 text-base sm:text-lg ${
-                  currentLang === 'mr' || currentLang === 'hi' ? 'font-devanagari' : ''
-                } ${currentLang === 'kn' ? 'font-kannada' : ''}`}
+                  currentLang === 'mr' ? 'font-devanagari' : ''}`}
               >
                 {HERO_SUBTITLES[currentLang]}
               </motion.p>
@@ -323,7 +317,7 @@ export default function Home() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                       <span className="absolute top-3 left-3 bg-white text-xs font-semibold px-2.5 py-1 rounded-full text-charcoal shadow">
-                        {item.category === 'THALI' ? 'Signature Thali' : item.category}
+                        {item.category === 'CHICKEN_THALI' ? 'Chicken Thali' : item.category === 'MUTTON_THALI' ? 'Mutton Thali' : item.category}
                       </span>
                       <span
                         className={`absolute top-3 right-3 w-5 h-5 rounded-sm border-2 flex items-center justify-center ${
@@ -379,8 +373,8 @@ export default function Home() {
                 {t('sections.ourStory')}
               </h2>
               <p className={`text-charcoal/70 text-base leading-relaxed mb-8 ${
-                language === 'mr' || language === 'hi' ? 'font-devanagari' : ''
-              } ${language === 'kn' ? 'font-kannada' : ''}`}>
+                language === 'mr' ? 'font-devanagari' : ''
+              }`}>
                 {t('story.text')}
               </p>
 
