@@ -25,9 +25,7 @@ export default function AdminLogin() {
     <div className="min-h-screen bg-charcoal flex items-center justify-center px-4">
       <motion.div initial={false} animate={{ opacity: 1, scale: 1 }} className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-[#C0272D] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#C0272D]/30">
-            <ShieldCheck size={32} className="text-white" />
-          </div>
+          <img src="/logo.png" alt="Hotel Aaichyaa Gavat" className="w-20 h-20 rounded-full mx-auto mb-4 shadow-lg shadow-[#C0272D]/30" />
           <h1 className="font-playfair font-bold text-2xl text-white">Admin Panel</h1>
           <p className="text-white/40 text-sm mt-1">Hotel Aaichyaa Gavat — Management</p>
         </div>
