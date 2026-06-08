@@ -39,8 +39,8 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const adminLogin = async (email: string, password: string) => {
-    const adminEmail = import.meta.env.VITE_ADMIN_EMAIL || 'admin@thalihouse.com'
-    const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'ThaliHouse@2024'
+    const adminEmail = import.meta.env.VITE_ADMIN_EMAIL || 'admin@aaichyaagavat.com'
+    const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'AaichyaaGavat@2024'
 
     if (email !== adminEmail || password !== adminPassword) {
       return { error: 'Invalid admin credentials' }
