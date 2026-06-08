@@ -2,12 +2,13 @@ export type Language = 'mr' | 'en'
 
 export type MenuCategory =
   | 'VEG'
-  | 'CHICKEN_THALI'
-  | 'MUTTON_THALI'
-  | 'HANDI'
+  | 'NON_VEG_PLATTER'
+  | 'CHICKEN_HANDI'
+  | 'MUTTON_HANDI'
+  | 'MUTTON_PLATE'
   | 'EGG'
   | 'RICE'
-  | 'BREADS'
+  | 'BREAD'
   | 'OTHERS'
 
 export interface MenuItem {
@@ -39,7 +40,7 @@ export interface RestaurantTable {
   status: TableStatus
 }
 
-export type OrderType = 'dine-in' | 'takeaway' | 'preorder'
+export type OrderType = 'dine-in' | 'takeaway'
 
 export interface Order {
   id?: string

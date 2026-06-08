@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Minus, Plus, Search, ChevronLeft, ChevronRight, Check, Users, Calendar, Clock } from 'lucide-react'
+import { Minus, Plus, Search, ChevronLeft, ChevronRight, Check } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 import { useAuth } from '../context/AuthContext'
 import { menuData } from '../lib/menuData'
@@ -21,34 +21,21 @@ const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
 type Step = 1 | 2 | 3
 
 const CATEGORIES: (MenuCategory | 'ALL')[] = [
-  'ALL', 'VEG', 'CHICKEN_THALI', 'MUTTON_THALI', 'HANDI', 'EGG', 'RICE', 'BREADS', 'OTHERS',
+  'ALL', 'VEG', 'NON_VEG_PLATTER', 'CHICKEN_HANDI', 'MUTTON_HANDI', 'MUTTON_PLATE', 'EGG', 'RICE', 'BREAD', 'OTHERS',
 ]
 
-const TABLE_ZONES = ['Main', 'Window', 'Private', 'Outdoor'] as const
-const OCCUPIED_TABLES = [3, 7, 12]
-const TABLES_PER_ZONE = 5
-
-function generateTables() {
-  return Array.from({ length: 20 }, (_, i) => {
-    const n = i + 1
-    const zoneIdx = Math.floor(i / TABLES_PER_ZONE)
-    return {
-      number: n,
-      zone: TABLE_ZONES[zoneIdx],
-      status: OCCUPIED_TABLES.includes(n) ? 'occupied' : 'available',
-    }
-  })
+interface SupaTable {
+  id: string
+  table_number: string
+  status: string
+  zone: string
+  capacity: number
 }
-
-const ALL_TABLES = generateTables()
 
 function generateOrderNumber() {
   return `TH-${Math.floor(100000 + Math.random() * 900000)}`
 }
 
-function todayISO() {
-  return new Date().toISOString().split('T')[0]
-}
 
 export default function Order() {
   const { t, language } = useLanguage()
@@ -59,15 +46,29 @@ export default function Order() {
   const [search, setSearch] = useState('')
 
   const [orderType, setOrderType] = useState<OrderType>('dine-in')
-  const [selectedTable, setSelectedTable] = useState<number | null>(null)
+  const [selectedTable, setSelectedTable] = useState<string | null>(null)
   const [customerName, setCustomerName] = useState('')
   const [whatsapp, setWhatsapp] = useState('')
   const [specialInstructions, setSpecialInstructions] = useState('')
 
-  // Pre-order only fields
-  const [arrivalDate, setArrivalDate] = useState('')
-  const [arrivalTime, setArrivalTime] = useState('13:00')
-  const [guests, setGuests] = useState(2)
+  // Tables from Supabase (real-time)
+  const [tables, setTables] = useState<SupaTable[]>([])
+
+  useEffect(() => {
+    async function fetchTables() {
+      const { data } = await supabase.from('restaurant_tables').select('*').order('table_number')
+      if (data) setTables(data)
+    }
+    fetchTables()
+
+    const ch = supabase
+      .channel('website-tables')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'restaurant_tables' }, () => fetchTables())
+      .subscribe()
+    return () => { supabase.removeChannel(ch) }
+  }, [])
+
+  const TABLE_ZONES = [...new Set(tables.map(t => t.zone))]
 
   useEffect(() => {
     if (profile) {
@@ -136,11 +137,6 @@ export default function Order() {
       errs.whatsapp = 'Valid WhatsApp number required'
     if (orderType === 'dine-in' && !selectedTable)
       errs.table = 'Please select a table'
-    if (orderType === 'preorder') {
-      if (!arrivalDate) errs.arrivalDate = 'Arrival date is required'
-      if (!arrivalTime) errs.arrivalTime = 'Arrival time is required'
-      if (guests < 1 || guests > 20) errs.guests = 'Please select 1-20 guests'
-    }
     setErrors(errs)
     return Object.keys(errs).length === 0
   }
@@ -165,9 +161,7 @@ export default function Order() {
     const itemsList = cart
       .map((ci) => `${ci.quantity}x ${ci.menuItem.name_en} - Rs.${ci.menuItem.price * ci.quantity}`)
       .join(', ')
-    const preorderLine = orderType === 'preorder' && arrivalDate
-      ? `\nArrival: ${arrivalDate} at ${arrivalTime}, ${guests} guests`
-      : ''
+    const selectedTableObj = tables.find(t => t.id === selectedTable)
 
     const payload = {
       order_number: orderNum,
@@ -181,8 +175,7 @@ export default function Order() {
         price: ci.menuItem.price,
       })),
       total: subtotal,
-      ...(selectedTable ? { table_number: String(selectedTable) } : {}),
-      ...(orderType === 'preorder' ? { arrival_date: arrivalDate, arrival_time: arrivalTime, guests } : {}),
+      ...(selectedTable ? { table_number: selectedTableObj?.table_number } : {}),
     }
 
     fetch(`${API_URL}/notify/order-placed`, {
@@ -197,7 +190,7 @@ export default function Order() {
         `Items: ${itemsList}\n` +
         `Total: Rs.${subtotal}\n` +
         `Payment: ${paymentMethod === 'cod' ? 'Cash on Delivery' : 'Online'}\n` +
-        `Estimated time: 20-30 min${preorderLine}\n` +
+        `Estimated time: 20-30 min\n` +
         `Thank you for ordering from Hotel Aaichyaa Gavat!`
       )
     })
@@ -222,12 +215,7 @@ export default function Order() {
       payment_method: paymentMethod,
       payment_status: 'pending',
       order_status: 'placed',
-    }
-
-    if (orderType === 'preorder') {
-      insertPayload.arrival_date = arrivalDate
-      insertPayload.arrival_time = arrivalTime
-      insertPayload.guests = guests
+      ...(orderType === 'dine-in' && selectedTable ? { table_id: selectedTable } : {}),
     }
 
     const { data: orderData, error } = await supabase
@@ -242,6 +230,11 @@ export default function Order() {
       console.error('Order insert error:', error)
       toast.error('Failed to place order. Please try again.')
       return
+    }
+
+    // Mark table as occupied for dine-in orders
+    if (orderType === 'dine-in' && selectedTable) {
+      await supabase.from('restaurant_tables').update({ status: 'occupied' }).eq('id', selectedTable)
     }
 
     if (paymentMethod === 'razorpay' && RAZORPAY_ACTIVE && window.Razorpay) {
@@ -337,13 +330,6 @@ export default function Order() {
                 <div className="text-xs text-charcoal/40 mb-1">Order Number</div>
                 <div className="font-dmserif text-2xl text-[#C0272D]">{orderNumber}</div>
               </div>
-              {orderType === 'preorder' && arrivalDate && (
-                <div className="bg-[#C0272D]/5 border border-[#C0272D]/20 rounded-xl p-3 mb-4 text-sm text-left">
-                  <div className="font-semibold text-charcoal mb-1">Pre-Order Details</div>
-                  <div className="text-charcoal/60">Arrival: {arrivalDate} at {arrivalTime}</div>
-                  <div className="text-charcoal/60">Guests: {guests}</div>
-                </div>
-              )}
               <p className="text-charcoal/50 text-sm mb-6">
                 We will confirm your order via WhatsApp on +91 {whatsapp}
               </p>
@@ -369,7 +355,7 @@ export default function Order() {
                           className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
                             activeCategory === cat ? 'bg-[#C0272D] text-white' : 'bg-white text-charcoal/60 hover:bg-[#C0272D]/10'
                           }`}>
-                          {cat === 'ALL' ? 'All' : cat === 'CHICKEN_THALI' ? 'Chicken' : cat === 'MUTTON_THALI' ? 'Mutton' : cat.charAt(0) + cat.slice(1).toLowerCase()}
+                          {cat === 'ALL' ? 'All' : cat.replace(/_/g, ' ')}
                         </button>
                       ))}
                     </div>
@@ -429,10 +415,10 @@ export default function Order() {
                     {/* Order type */}
                     <div>
                       <h3 className="font-semibold text-charcoal mb-3">{t('orderPage.orderType')}</h3>
-                      <div className="grid grid-cols-3 gap-3">
-                        {(['dine-in', 'takeaway', 'preorder'] as OrderType[]).map((type) => {
-                          const labels: Record<OrderType, string> = { 'dine-in': t('orderPage.dineIn'), takeaway: t('orderPage.takeaway'), preorder: t('orderPage.preorder') }
-                          const icons: Record<OrderType, string> = { 'dine-in': '🍽️', takeaway: '🥡', preorder: '📅' }
+                      <div className="grid grid-cols-2 gap-3">
+                        {(['dine-in', 'takeaway'] as OrderType[]).map((type) => {
+                          const labels: Record<string, string> = { 'dine-in': t('orderPage.dineIn'), takeaway: t('orderPage.takeaway') }
+                          const icons: Record<string, string> = { 'dine-in': '🍽️', takeaway: '🥡' }
                           return (
                             <motion.button key={type} whileTap={{ scale: 0.97 }} onClick={() => setOrderType(type)}
                               className={`p-4 rounded-xl border-2 text-center transition-all duration-200 ${orderType === type ? 'border-[#C0272D] bg-[#C0272D]/5' : 'border-charcoal/15 bg-white hover:border-[#C0272D]/40'}`}>
@@ -454,18 +440,21 @@ export default function Order() {
                             <div key={zone}>
                               <div className="text-xs font-semibold text-charcoal/50 uppercase tracking-wider mb-2">{zone} Zone</div>
                               <div className="grid grid-cols-5 gap-2">
-                                {ALL_TABLES.filter((t) => t.zone === zone).map((table) => (
-                                  <motion.button key={table.number} whileTap={{ scale: 0.9 }}
-                                    disabled={table.status === 'occupied'} onClick={() => setSelectedTable(table.number)}
-                                    className={`py-2.5 rounded-xl text-xs font-bold transition-all duration-200 ${
-                                      table.status === 'occupied' ? 'bg-red-100 text-red-400 cursor-not-allowed'
-                                        : selectedTable === table.number ? 'bg-[#C0272D] text-white shadow-md shadow-[#C0272D]/30'
-                                        : 'bg-green-50 text-green-700 hover:bg-green-100 border border-green-200'
-                                    }`}
-                                    style={selectedTable === table.number ? { boxShadow: '0 0 12px rgba(192,39,45,0.4)' } : {}}>
-                                    T{table.number}
-                                  </motion.button>
-                                ))}
+                                {tables.filter((t) => t.zone === zone).map((table) => {
+                                  const isOccupied = table.status === 'occupied' || table.status === 'reserved'
+                                  return (
+                                    <motion.button key={table.id} whileTap={{ scale: 0.9 }}
+                                      disabled={isOccupied} onClick={() => setSelectedTable(table.id)}
+                                      className={`py-2.5 rounded-xl text-xs font-bold transition-all duration-200 ${
+                                        isOccupied ? 'bg-red-100 text-red-400 cursor-not-allowed'
+                                          : selectedTable === table.id ? 'bg-[#C0272D] text-white shadow-md shadow-[#C0272D]/30'
+                                          : 'bg-green-50 text-green-700 hover:bg-green-100 border border-green-200'
+                                      }`}
+                                      style={selectedTable === table.id ? { boxShadow: '0 0 12px rgba(192,39,45,0.4)' } : {}}>
+                                      {table.table_number}
+                                    </motion.button>
+                                  )
+                                })}
                               </div>
                             </div>
                           ))}
@@ -474,58 +463,6 @@ export default function Order() {
                           <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-green-100 border border-green-200" />Available</span>
                           <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-red-100" />Occupied</span>
                           <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-[#C0272D]" />Selected</span>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Pre-order fields — only when preorder selected */}
-                    {orderType === 'preorder' && (
-                      <div className="bg-[#C0272D]/5 border border-[#C0272D]/20 rounded-2xl p-5 space-y-4">
-                        <div className="flex items-center gap-2">
-                          <span className="text-lg">📅</span>
-                          <h3 className="font-semibold text-charcoal">Pre-Order Details</h3>
-                        </div>
-                        {/* Arrival Date */}
-                        <div>
-                          <label className="block text-sm font-semibold text-charcoal mb-1.5">
-                            <span className="flex items-center gap-1.5"><Calendar size={14} className="text-[#C0272D] inline" /> Arrival Date</span>
-                          </label>
-                          <input type="date" value={arrivalDate} min={todayISO()}
-                            onChange={(e) => setArrivalDate(e.target.value)}
-                            className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none transition-colors bg-white ${errors.arrivalDate ? 'border-red-400' : 'border-charcoal/20 focus:border-[#C0272D]/60'}`} />
-                          {errors.arrivalDate && <p className="text-red-500 text-xs mt-1">{errors.arrivalDate}</p>}
-                        </div>
-                        {/* Arrival Time */}
-                        <div>
-                          <label className="block text-sm font-semibold text-charcoal mb-1.5">
-                            <span className="flex items-center gap-1.5"><Clock size={14} className="text-[#C0272D] inline" /> Arrival Time</span>
-                          </label>
-                          <input type="time" value={arrivalTime} min="11:00" max="23:00"
-                            onChange={(e) => setArrivalTime(e.target.value)}
-                            className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none transition-colors bg-white ${errors.arrivalTime ? 'border-red-400' : 'border-charcoal/20 focus:border-[#C0272D]/60'}`} />
-                          <p className="text-xs text-charcoal/40 mt-1">Restaurant hours: 11:00 AM – 11:00 PM</p>
-                          {errors.arrivalTime && <p className="text-red-500 text-xs mt-1">{errors.arrivalTime}</p>}
-                        </div>
-                        {/* Number of Guests */}
-                        <div>
-                          <label className="block text-sm font-semibold text-charcoal mb-1.5">
-                            <span className="flex items-center gap-1.5"><Users size={14} className="text-[#C0272D] inline" /> Number of Guests</span>
-                          </label>
-                          <div className="flex items-center gap-4">
-                            <motion.button whileTap={{ scale: 0.9 }} type="button" onClick={() => setGuests((g) => Math.max(1, g - 1))}
-                              className="w-10 h-10 rounded-full bg-white border border-charcoal/20 flex items-center justify-center hover:border-[#C0272D]/60 transition-colors">
-                              <Minus size={16} className="text-charcoal/60" />
-                            </motion.button>
-                            <div className="flex-1 text-center">
-                              <span className="font-bold text-2xl text-charcoal">{guests}</span>
-                              <span className="text-charcoal/50 text-sm ml-1">guest{guests !== 1 ? 's' : ''}</span>
-                            </div>
-                            <motion.button whileTap={{ scale: 0.9 }} type="button" onClick={() => setGuests((g) => Math.min(20, g + 1))}
-                              className="w-10 h-10 rounded-full bg-[#C0272D] flex items-center justify-center shadow-sm">
-                              <Plus size={16} className="text-white" />
-                            </motion.button>
-                          </div>
-                          {errors.guests && <p className="text-red-500 text-xs mt-1">{errors.guests}</p>}
                         </div>
                       </div>
                     )}
@@ -598,13 +535,7 @@ export default function Order() {
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between"><span className="text-charcoal/50">Type</span><span className="font-semibold capitalize">{orderType}</span></div>
                         {orderType === 'dine-in' && selectedTable && (
-                          <div className="flex justify-between"><span className="text-charcoal/50">Table</span><span className="font-semibold">T{selectedTable}</span></div>
-                        )}
-                        {orderType === 'preorder' && arrivalDate && (
-                          <>
-                            <div className="flex justify-between"><span className="text-charcoal/50">Arrival</span><span className="font-semibold">{arrivalDate} at {arrivalTime}</span></div>
-                            <div className="flex justify-between"><span className="text-charcoal/50">Guests</span><span className="font-semibold">{guests}</span></div>
-                          </>
+                          <div className="flex justify-between"><span className="text-charcoal/50">Table</span><span className="font-semibold">{tables.find(t => t.id === selectedTable)?.table_number ?? selectedTable}</span></div>
                         )}
                         <div className="flex justify-between"><span className="text-charcoal/50">Name</span><span className="font-semibold">{customerName}</span></div>
                         <div className="flex justify-between"><span className="text-charcoal/50">WhatsApp</span><span className="font-semibold">+91 {whatsapp}</span></div>
