@@ -19,7 +19,7 @@ interface Order {
   arrival_date?: string
   arrival_time?: string
   guests?: number
-  items: Array<{ id: string; name: string; qty: number; price: number }>
+  items: Array<{ id: string; name: string; name_mr?: string; qty: number; price: number }>
 }
 
 const STATUS_OPTIONS = ['placed', 'confirmed', 'preparing', 'ready', 'delivered', 'cancelled']
@@ -98,7 +98,11 @@ function InvoiceModal({ order, onClose }: { order: Order; onClose: () => void })
                   {order.arrival_date} at {order.arrival_time} · {order.guests} guests
                 </div>
               )}
-              <div className="text-xs text-charcoal/50 capitalize">{order.payment_method}</div>
+              <div className="text-xs text-charcoal/50 capitalize">
+                {order.payment_method?.startsWith('split:')
+                  ? `Split — Cash: Rs.${order.payment_method.match(/cash=(\d+)/)?.[1] ?? '0'} + Online: Rs.${order.payment_method.match(/online=(\d+)/)?.[1] ?? '0'}`
+                  : order.payment_method}
+              </div>
             </div>
           </div>
 
@@ -117,7 +121,7 @@ function InvoiceModal({ order, onClose }: { order: Order; onClose: () => void })
               <tbody>
                 {Array.isArray(order.items) && order.items.map((item, i) => (
                   <tr key={i} className="border-b border-gray-100">
-                    <td className="py-2 text-charcoal">{item.name}</td>
+                    <td className="py-2 text-charcoal">{item.name_mr || item.name}{item.name_mr && <span className="block text-xs text-charcoal/40">{item.name}</span>}</td>
                     <td className="py-2 text-center text-charcoal/60">{item.qty}</td>
                     <td className="py-2 text-right text-charcoal/60">Rs.{item.price}</td>
                     <td className="py-2 text-right font-semibold text-charcoal">Rs.{item.price * item.qty}</td>
@@ -345,7 +349,11 @@ export default function OrdersAdmin() {
                     <div className="flex justify-between"><span className="text-charcoal/50">Guests</span><span className="font-semibold">{selected.guests}</span></div>
                   </>
                 )}
-                <div className="flex justify-between"><span className="text-charcoal/50">Payment</span><span className="capitalize">{selected.payment_method}</span></div>
+                <div className="flex justify-between"><span className="text-charcoal/50">Payment</span><span className="capitalize">
+                  {selected.payment_method?.startsWith('split:')
+                    ? `Split — Cash: Rs.${selected.payment_method.match(/cash=(\d+)/)?.[1] ?? '0'} + Online: Rs.${selected.payment_method.match(/online=(\d+)/)?.[1] ?? '0'}`
+                    : selected.payment_method}
+                </span></div>
                 <div className="flex justify-between">
                   <span className="text-charcoal/50">Pay Status</span>
                   <span className={`text-xs font-bold px-2 py-0.5 rounded-full capitalize ${selected.payment_status === 'paid' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}`}>
@@ -357,7 +365,7 @@ export default function OrdersAdmin() {
                 <div className="text-xs font-semibold text-charcoal/50 mb-2">ITEMS</div>
                 {Array.isArray(selected.items) && selected.items.map((item, i) => (
                   <div key={i} className="flex justify-between text-sm py-1">
-                    <span className="text-charcoal/70">{item.name} × {item.qty}</span>
+                    <span className="text-charcoal/70">{item.name_mr || item.name}{item.name_mr ? <span className="text-charcoal/40 text-xs ml-1">({item.name})</span> : ''} × {item.qty}</span>
                     <span className="font-semibold">Rs.{item.price * item.qty}</span>
                   </div>
                 ))}

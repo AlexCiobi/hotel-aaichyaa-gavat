@@ -9,6 +9,8 @@ interface Stats {
   activeReservations: number
   totalCustomers: number
   topItem: string
+  cashTotal: number
+  onlineTotal: number
 }
 
 interface RecentOrder {
@@ -43,8 +45,9 @@ function StatCard({ icon: Icon, label, value, sub, color }: { icon: React.Elemen
 }
 
 export default function Dashboard() {
-  const [stats, setStats] = useState<Stats>({ todayOrders: 0, todayRevenue: 0, activeReservations: 0, totalCustomers: 0, topItem: '—' })
+  const [stats, setStats] = useState<Stats>({ todayOrders: 0, todayRevenue: 0, activeReservations: 0, totalCustomers: 0, topItem: '—', cashTotal: 0, onlineTotal: 0 })
   const [recentOrders, setRecentOrders] = useState<RecentOrder[]>([])
+  const [settledBills, setSettledBills] = useState<(RecentOrder & { payment_method?: string; total?: number })[]>([])
   const [tables, setTables] = useState<TableStatus[]>([])
   const [weeklyData, setWeeklyData] = useState<{ day: string; revenue: number }[]>([])
 
@@ -59,6 +62,34 @@ export default function Dashboard() {
         const revenue = orders.reduce((s, o) => s + (o.subtotal || 0), 0)
         setStats(prev => ({ ...prev, todayOrders: orders.length, todayRevenue: revenue }))
         setRecentOrders(orders.slice(0, 10))
+      })
+
+    // Settled bills (last 24h)
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+    supabase.from('orders').select('id,order_number,customer_name,order_status,subtotal,created_at,payment_method,total')
+      .eq('payment_status', 'paid')
+      .gte('created_at', oneDayAgo)
+      .order('created_at', { ascending: false })
+      .then(({ data }) => setSettledBills(data ?? []))
+
+    // Cash vs Online settlement
+    supabase.from('orders').select('payment_method,total,subtotal')
+      .eq('payment_status', 'paid')
+      .then(({ data }) => {
+        let cashTotal = 0, onlineTotal = 0
+        data?.forEach(o => {
+          const amt = o.total || o.subtotal || 0
+          const pm = o.payment_method || ''
+          if (pm.startsWith('split:')) {
+            cashTotal += Number(pm.match(/cash=(\d+)/)?.[1] || 0)
+            onlineTotal += Number(pm.match(/online=(\d+)/)?.[1] || 0)
+          } else if (pm === 'online') {
+            onlineTotal += amt
+          } else {
+            cashTotal += amt
+          }
+        })
+        setStats(prev => ({ ...prev, cashTotal, onlineTotal }))
       })
 
     // Active reservations today
@@ -117,6 +148,31 @@ export default function Dashboard() {
         <StatCard icon={Users} label="Total Customers" value={stats.totalCustomers} color="bg-purple-500" />
       </div>
 
+      {/* Cash vs Online Settlement */}
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+        <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-3 h-3 rounded-full bg-green-500" />
+            <span className="text-sm font-semibold text-charcoal/60">Cash Collected</span>
+          </div>
+          <div className="font-bold text-2xl text-green-600">₹{stats.cashTotal.toLocaleString('en-IN')}</div>
+        </div>
+        <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-3 h-3 rounded-full bg-blue-500" />
+            <span className="text-sm font-semibold text-charcoal/60">Online Received</span>
+          </div>
+          <div className="font-bold text-2xl text-blue-600">₹{stats.onlineTotal.toLocaleString('en-IN')}</div>
+        </div>
+        <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 col-span-2 lg:col-span-1">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-3 h-3 rounded-full bg-[#C0272D]" />
+            <span className="text-sm font-semibold text-charcoal/60">Total Settlement</span>
+          </div>
+          <div className="font-bold text-2xl text-[#C0272D]">₹{(stats.cashTotal + stats.onlineTotal).toLocaleString('en-IN')}</div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         {/* Weekly Revenue Chart */}
         <div className="lg:col-span-2 bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
@@ -148,6 +204,46 @@ export default function Dashboard() {
               <span key={s} className={`text-xs px-2 py-0.5 rounded-full font-medium ${cls}`}>{s}</span>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Bill History (Last 24h) */}
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
+        <div className="px-5 py-4 border-b border-gray-100">
+          <h2 className="font-semibold text-charcoal">Bill History (Last 24h)</h2>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-gray-50">
+              <tr>
+                {['Order #', 'Customer', 'Amount', 'Payment', 'Time'].map(h => (
+                  <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-charcoal/50 uppercase tracking-wider">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {settledBills.length === 0 ? (
+                <tr><td colSpan={5} className="px-4 py-8 text-center text-charcoal/30 text-sm">No settled bills in the last 24 hours</td></tr>
+              ) : settledBills.map(o => (
+                <tr key={o.id} className="hover:bg-gray-50 transition-colors">
+                  <td className="px-4 py-3 font-semibold text-[#C0272D]">{o.order_number}</td>
+                  <td className="px-4 py-3 text-charcoal">{o.customer_name}</td>
+                  <td className="px-4 py-3 font-semibold">₹{o.total || o.subtotal}</td>
+                  <td className="px-4 py-3">
+                    <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
+                      o.payment_method?.startsWith('split') ? 'bg-purple-100 text-purple-700' :
+                      o.payment_method === 'online' ? 'bg-blue-100 text-blue-700' :
+                      'bg-green-100 text-green-700'}`}>
+                      {o.payment_method?.startsWith('split:')
+                        ? `Split — Cash: ₹${o.payment_method.match(/cash=(\d+)/)?.[1] || 0} + Online: ₹${o.payment_method.match(/online=(\d+)/)?.[1] || 0}`
+                        : o.payment_method === 'online' ? 'Online' : 'Cash'}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-charcoal/50">{new Date(o.created_at).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 

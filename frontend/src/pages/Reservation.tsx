@@ -8,7 +8,7 @@ import toast from 'react-hot-toast'
 import type { OccasionType } from '../lib/types'
 import ScrollReveal from '../components/ScrollReveal'
 
-const OCCUPIED_TABLES = [3, 7, 12]
+interface TableInfo { id: string; table_number: string; capacity: number; zone: string; status: string }
 
 function generateTimeSlots(): string[] {
   const slots: string[] = []
@@ -46,6 +46,7 @@ export default function Reservation() {
   const [guestCount, setGuestCount] = useState(2)
   const [occasion, setOccasion] = useState<OccasionType>('none')
   const [preferredTable, setPreferredTable] = useState<number | null>(null)
+  const [restaurantTables, setRestaurantTables] = useState<TableInfo[]>([])
   const [customerName, setCustomerName] = useState('')
   const [whatsapp, setWhatsapp] = useState('')
   const [specialRequests, setSpecialRequests] = useState('')
@@ -53,6 +54,13 @@ export default function Reservation() {
   const [success, setSuccess] = useState(false)
   const [bookingRef, setBookingRef] = useState('')
   const [submitting, setSubmitting] = useState(false)
+
+  // Fetch tables from Supabase
+  useEffect(() => {
+    supabase.from('restaurant_tables').select('*').order('table_number').then(({ data }) => {
+      setRestaurantTables(data ?? [])
+    })
+  }, [])
 
   // Pre-fill from auth profile
   useEffect(() => {
@@ -310,37 +318,44 @@ export default function Reservation() {
                 <div className="bg-white rounded-2xl p-6 shadow-sm">
                   <h3 className="font-playfair font-semibold text-lg text-charcoal mb-2">Preferred Table (Optional)</h3>
                   <p className="text-charcoal/40 text-xs mb-4">Click a table to select your preference</p>
-                  {/* Simple floor plan SVG */}
+                  {/* Floor plan from Supabase */}
                   <div className="bg-offwhite rounded-xl p-4 mb-4">
-                    <div className="grid grid-cols-4 gap-2">
-                      {Array.from({ length: 20 }, (_, i) => {
-                        const n = i + 1
-                        const isOccupied = OCCUPIED_TABLES.includes(n)
-                        const isSelected = preferredTable === n
-                        return (
-                          <motion.button
-                            key={n}
-                            whileTap={{ scale: 0.9 }}
-                            disabled={isOccupied}
-                            onClick={() => setPreferredTable(isSelected ? null : n)}
-                            className={`relative py-3 rounded-xl text-xs font-bold transition-all duration-200 ${
-                              isOccupied
-                                ? 'bg-red-100 text-red-400 cursor-not-allowed'
-                                : isSelected
-                                ? 'bg-[#C0272D] text-white shadow-md'
-                                : 'bg-white text-charcoal/60 hover:bg-[#C0272D]/10 hover:text-[#C0272D] border border-charcoal/10'
-                            }`}
-                          >
-                            T{n}
-                            {isSelected && (
-                              <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
-                                <Check size={8} className="text-white" />
-                              </span>
-                            )}
-                          </motion.button>
-                        )
-                      })}
-                    </div>
+                    {['main', 'family'].filter(zone => restaurantTables.some(t => t.zone === zone)).map(zone => (
+                      <div key={zone} className="mb-4 last:mb-0">
+                        <div className="text-xs font-bold text-charcoal/50 uppercase tracking-wider mb-2">{zone === 'main' ? 'Main Section' : 'Family Section'}</div>
+                        <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
+                          {restaurantTables.filter(t => t.zone === zone).map(table => {
+                            const num = parseInt(table.table_number.replace('T', ''))
+                            const isOccupied = table.status === 'occupied'
+                            const isReserved = table.status === 'reserved'
+                            const isSelected = preferredTable === num
+                            return (
+                              <motion.button
+                                key={table.id}
+                                whileTap={{ scale: 0.9 }}
+                                disabled={isOccupied || isReserved}
+                                onClick={() => setPreferredTable(isSelected ? null : num)}
+                                className={`relative py-3 rounded-xl text-xs font-bold transition-all duration-200 ${
+                                  isOccupied || isReserved
+                                    ? 'bg-red-100 text-red-400 cursor-not-allowed'
+                                    : isSelected
+                                    ? 'bg-[#C0272D] text-white shadow-md'
+                                    : 'bg-white text-charcoal/60 hover:bg-[#C0272D]/10 hover:text-[#C0272D] border border-charcoal/10'
+                                }`}
+                              >
+                                {table.table_number}
+                                <span className="block text-[9px] font-normal opacity-60">{table.capacity} seats</span>
+                                {isSelected && (
+                                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                                    <Check size={8} className="text-white" />
+                                  </span>
+                                )}
+                              </motion.button>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    ))}
                     <div className="flex items-center gap-4 mt-3 text-xs text-charcoal/50">
                       <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-white border border-charcoal/10" />Available</span>
                       <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-red-100" />Occupied</span>

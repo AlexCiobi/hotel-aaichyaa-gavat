@@ -438,7 +438,7 @@ export default function Order() {
                         <div className="space-y-4">
                           {TABLE_ZONES.map((zone) => (
                             <div key={zone}>
-                              <div className="text-xs font-semibold text-charcoal/50 uppercase tracking-wider mb-2">{zone} Zone</div>
+                              <div className="text-xs font-semibold text-charcoal/50 uppercase tracking-wider mb-2">{zone === 'main' ? 'Main Section' : zone === 'family' ? 'Family Section' : `${zone} Zone`}</div>
                               <div className="grid grid-cols-5 gap-2">
                                 {tables.filter((t) => t.zone === zone).map((table) => {
                                   const isOccupied = table.status === 'occupied' || table.status === 'reserved'

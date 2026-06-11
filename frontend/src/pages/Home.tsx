@@ -26,12 +26,12 @@ const HERO_SUBTITLES: Record<Language, string> = {
 }
 
 const SIGNATURE_ITEMS = [
-  menuData.find((m) => m.id === 'cthali-005')!,
-  menuData.find((m) => m.id === 'mthali-005')!,
-  menuData.find((m) => m.id === 'handi-001')!,
-]
+  menuData.find((m) => m.id === 'nvp-005')!,
+  menuData.find((m) => m.id === 'mp-005')!,
+  menuData.find((m) => m.id === 'ch-001')!,
+].filter(Boolean)
 
-const MENU_PREVIEW_IDS = ['veg-010', 'cthali-001', 'mthali-001', 'handi-007']
+const MENU_PREVIEW_IDS = ['veg-010', 'nvp-001', 'mp-001', 'ch-001']
 
 // Counter hook
 function useCounter(target: number, isVisible: boolean, duration = 1800) {
@@ -317,7 +317,7 @@ export default function Home() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                       <span className="absolute top-3 left-3 bg-white text-xs font-semibold px-2.5 py-1 rounded-full text-charcoal shadow">
-                        {item.category === 'CHICKEN_THALI' ? 'Chicken Thali' : item.category === 'MUTTON_THALI' ? 'Mutton Thali' : item.category}
+                        {item.category.replace(/_/g, ' ')}
                       </span>
                       <span
                         className={`absolute top-3 right-3 w-5 h-5 rounded-sm border-2 flex items-center justify-center ${

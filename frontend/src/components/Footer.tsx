@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { MapPin, Phone, Clock, Instagram } from 'lucide-react'
+import { Phone, Clock, Instagram } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Footer() {
@@ -98,12 +98,6 @@ export default function Footer() {
               {t('footer.contact')}
             </h4>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <MapPin size={16} className="text-[#C0272D] mt-0.5 flex-shrink-0" />
-                <span className="text-white/60 text-sm leading-relaxed">
-                  Bavaskar Building, RB Road, Kagwade Mala, Ichalkaranji, Maharashtra 416115
-                </span>
-              </li>
               <li className="flex items-center gap-3">
                 <Phone size={16} className="text-[#C0272D] flex-shrink-0" />
                 <a

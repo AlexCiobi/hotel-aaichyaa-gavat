@@ -10,13 +10,14 @@ type FilterVeg = 'all' | 'veg' | 'nonveg'
 
 const CATEGORIES: { id: MenuCategory | 'ALL'; label: string }[] = [
   { id: 'ALL', label: 'All' },
-  { id: 'VEG', label: 'Veg' },
-  { id: 'CHICKEN_THALI', label: 'Chicken Thali' },
-  { id: 'MUTTON_THALI', label: 'Mutton Thali' },
-  { id: 'HANDI', label: 'Handi' },
+  { id: 'VEG', label: 'Vegetarian' },
+  { id: 'NON_VEG_PLATTER', label: 'Non-Veg Platter' },
+  { id: 'CHICKEN_HANDI', label: 'Chicken Handi' },
+  { id: 'MUTTON_HANDI', label: 'Mutton Handi' },
+  { id: 'MUTTON_PLATE', label: 'Mutton Plate' },
   { id: 'EGG', label: 'Egg' },
   { id: 'RICE', label: 'Rice' },
-  { id: 'BREADS', label: 'Breads' },
+  { id: 'BREAD', label: 'Bread' },
   { id: 'OTHERS', label: 'Others' },
 ]
 
@@ -231,7 +232,7 @@ export default function Menu() {
                         />
                       </span>
                       <span className="absolute top-3 right-3 bg-charcoal/60 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm">
-                        {item.category === 'CHICKEN_THALI' ? 'Chicken' : item.category === 'MUTTON_THALI' ? 'Mutton' : item.category}
+                        {item.category.replace(/_/g, ' ')}
                       </span>
                     </div>
                     <div className="p-4">

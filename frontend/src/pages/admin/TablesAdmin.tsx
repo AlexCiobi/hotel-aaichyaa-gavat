@@ -12,7 +12,7 @@ interface Table {
 }
 
 const STATUS_OPTIONS = ['available', 'occupied', 'reserved', 'maintenance']
-const ZONE_OPTIONS = ['main', 'window', 'private', 'outdoor']
+const ZONE_OPTIONS = ['main', 'family', 'window', 'private', 'outdoor']
 
 function statusColor(s: string) {
   const map: Record<string, string> = {
@@ -117,8 +117,12 @@ export default function TablesAdmin() {
 
       {/* Tables Grid */}
       {loading ? <div className="text-center py-10 text-charcoal/30">Loading...</div> : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-          {tables.map(table => (
+        <>
+        {['main', 'family'].filter(zone => tables.some(t => t.zone === zone)).map(zone => (
+          <div key={zone} className="mb-6">
+            <h2 className="font-playfair font-bold text-lg text-charcoal mb-3 capitalize">{zone === 'main' ? 'Main Section' : 'Family Section'}</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+          {tables.filter(t => t.zone === zone).map(table => (
             <div key={table.id} className={`bg-white rounded-2xl p-4 border shadow-sm transition-all duration-200 ${statusColor(table.status).replace('text-', 'border-')}`}>
               {editing === table.id ? (
                 <div className="space-y-2">
@@ -154,7 +158,10 @@ export default function TablesAdmin() {
               )}
             </div>
           ))}
-        </div>
+            </div>
+          </div>
+        ))}
+        </>
       )}
     </div>
   )
